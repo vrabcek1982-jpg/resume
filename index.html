@@ -53,7 +53,7 @@
     overflow-x: hidden;
   }
 
-  /* ── NAV ── */
+  /* NAV */
   .nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     background: var(--nav-bg);
@@ -83,7 +83,7 @@
   }
   .theme-toggle:hover { border-color: var(--accent); background: var(--accent-glow); }
 
-  /* ── HERO ── */
+  /* HERO */
   .hero {
     min-height: 100vh; display: flex; align-items: center; justify-content: center;
     padding: 6rem 1.5rem 4rem; position: relative; overflow: hidden;
@@ -128,7 +128,7 @@
   }
   .btn-outline:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
 
-  /* ── SECTIONS ── */
+  /* SECTIONS */
   .container { max-width: 1000px; margin: 0 auto; padding: 0 1.5rem; }
   section { padding: 5rem 0; }
   .section-label {
@@ -141,7 +141,7 @@
     margin-bottom: 2rem; letter-spacing: -0.5px;
   }
 
-  /* ── SKILLS ── */
+  /* SKILLS */
   .skills-grid {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1rem;
@@ -159,7 +159,7 @@
   .skill-card h3 { font-size: 0.9rem; font-weight: 700; color: var(--primary); margin-bottom: 0.4rem; }
   .skill-card p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
 
-  /* ── TIMELINE ── */
+  /* TIMELINE */
   .timeline-container { position: relative; }
   .timeline-line {
     position: absolute; left: 20px; top: 0; bottom: 0; width: 2px;
@@ -226,7 +226,7 @@
   .job-card-content ul ul { margin: 0.25rem 0 0.25rem 0.75rem; }
   .job-card-content ul ul li::before { background: var(--text-secondary); width: 4px; height: 4px; }
 
-  /* ── CONTACT ── */
+  /* CONTACT */
   .contact-grid {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
@@ -243,7 +243,7 @@
   .contact-card a { color: var(--primary); text-decoration: none; }
   .contact-card a:hover { color: var(--accent); }
 
-  /* ── SCROLL TOP ── */
+  /* SCROLL TOP */
   .scroll-top {
     position: fixed; bottom: 2rem; right: 2rem; z-index: 90;
     width: 44px; height: 44px; border-radius: 50%;
@@ -255,18 +255,22 @@
   .scroll-top.visible { opacity: 1; transform: translateY(0); }
   .scroll-top:hover { transform: translateY(-3px); }
 
-  /* ── FOOTER ── */
+  /* FOOTER */
   footer {
     text-align: center; padding: 2rem 1.5rem;
     font-size: 0.8rem; color: var(--text-secondary);
     border-top: 1px solid var(--border);
   }
 
-  /* ── MOBILE NAV ── */
+  /* MOBILE */
   .nav-toggle { display: none; background: none; border: none; font-size: 1.3rem; color: var(--text); cursor: pointer; padding: 0.4rem; }
 
   @media (max-width: 640px) {
-    .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--nav-bg); backdrop-filter: blur(12px); flex-direction: column; padding: 0.5rem; border-bottom: 1px solid var(--border); }
+    .nav-links {
+      display: none; position: absolute; top: 100%; left: 0; right: 0;
+      background: var(--nav-bg); backdrop-filter: blur(12px);
+      flex-direction: column; padding: 0.5rem; border-bottom: 1px solid var(--border);
+    }
     .nav-links.open { display: flex; }
     .nav-toggle { display: block; }
     .hero h1 { font-size: 2rem; }
@@ -276,12 +280,21 @@
     section { padding: 3rem 0; }
   }
 
-  /* ── ANIMATIONS ── */
+  /* ANIMATIONS */
   .fade-in {
     opacity: 0; transform: translateY(20px);
     transition: opacity 0.6s ease, transform 0.6s ease;
   }
   .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  @media print {
+    .nav, .scroll-top, .theme-toggle, .hero-cta { display: none; }
+    .hero { min-height: auto; padding: 2rem 1.5rem; }
+    .job-card-body { max-height: none; }
+    .timeline-item { opacity: 1; transform: none; }
+    .fade-in { opacity: 1; transform: none; }
+    section { padding: 1.5rem 0; }
+  }
 </style>
 </head>
 <body>
@@ -290,13 +303,13 @@
 <nav class="nav" role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
     <span class="nav-brand">FF</span>
-    <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+    <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">&#9776;</button>
     <div class="nav-links">
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">&#127769;</button>
     </div>
   </div>
 </nav>
@@ -309,7 +322,7 @@
     <h1>Frantisek <span class="accent">Floch</span></h1>
     <p class="hero-subtitle">Driving optimization, predictive modeling, and strategic forecasting solutions across global finance operations. Bridging technical capabilities with business needs to deliver measurable impact.</p>
     <div class="hero-cta">
-      <a href="#experience" class="btn btn-primary">View Experience ↓</a>
+      <a href="#experience" class="btn btn-primary">View Experience &#8595;</a>
       <a href="#contact" class="btn btn-outline">Get in Touch</a>
     </div>
   </div>
@@ -322,29 +335,29 @@
     <h2 class="section-heading">Skills &amp; Qualifications</h2>
     <div class="skills-grid">
       <div class="skill-card fade-in">
-        <div class="skill-card-icon">💻</div>
+        <div class="skill-card-icon">&#128187;</div>
         <h3>Technical</h3>
-        <p>SQL (Advanced) · C# · .NET · Excel · Power BI · MS Office · Visio/Draw.io · IT &amp; Server Infrastructure · Python</p>
+        <p>SQL (Advanced) &middot; C# &middot; .NET &middot; Excel &middot; Power BI &middot; MS Office &middot; Visio/Draw.io &middot; IT &amp; Server Infrastructure &middot; Python</p>
       </div>
       <div class="skill-card fade-in">
-        <div class="skill-card-icon">📊</div>
+        <div class="skill-card-icon">&#128202;</div>
         <h3>Analytics</h3>
-        <p>Predictive Modeling · Strategic Forecasting · Process Automation · Free Cash Flow &amp; Headcount Planning · ML Integration · Data Governance</p>
+        <p>Predictive Modeling &middot; Strategic Forecasting &middot; Process Automation &middot; Free Cash Flow &amp; Headcount Planning &middot; ML Integration &middot; Data Governance</p>
       </div>
       <div class="skill-card fade-in">
-        <div class="skill-card-icon">🤝</div>
+        <div class="skill-card-icon">&#129309;</div>
         <h3>Leadership</h3>
-        <p>Cross-Functional Collaboration · Stakeholder Communication · Presentations · Technical Mentorship · Virtual Team Management</p>
+        <p>Cross-Functional Collaboration &middot; Stakeholder Communication &middot; Presentations &middot; Technical Mentorship &middot; Virtual Team Management</p>
       </div>
       <div class="skill-card fade-in">
-        <div class="skill-card-icon">🌍</div>
+        <div class="skill-card-icon">&#127758;</div>
         <h3>Languages</h3>
-        <p>Slovak (Native) · English (Fluent) · German (Proficient) · Spanish (Learning)</p>
+        <p>Slovak (Native) &middot; English (Fluent) &middot; German (Proficient) &middot; Spanish (Learning)</p>
       </div>
       <div class="skill-card fade-in">
-        <div class="skill-card-icon">🏅</div>
+        <div class="skill-card-icon">&#127941;</div>
         <h3>Certifications</h3>
-        <p>Lean Six Sigma — 2× Yellow Belt, 5× Green Belt · Certified Soft Skills Trainer</p>
+        <p>Lean Six Sigma &mdash; 2&times; Yellow Belt, 5&times; Green Belt &middot; Certified Soft Skills Trainer</p>
       </div>
     </div>
   </div>
@@ -358,7 +371,7 @@
     <div class="timeline-container">
       <div class="timeline-line"></div>
 
-      <!-- 1 -->
+      <!-- Job 1 -->
       <div class="timeline-item">
         <div class="timeline-dot"></div>
         <div class="job-card" onclick="this.classList.toggle('open')">
@@ -367,11 +380,11 @@
               <div class="job-title">AWS AR Global Data Lead</div>
               <div class="job-company-line">
                 <span class="job-company">Amazon</span>
-                <span class="job-date">Jan 2021 – Present</span>
+                <span class="job-date">Jan 2021 &ndash; Present</span>
               </div>
               <div class="job-tagline">Data Architecture &amp; Advanced Analytics</div>
             </div>
-            <span class="expand-icon">▼</span>
+            <span class="expand-icon">&#9660;</span>
           </div>
           <div class="job-card-body">
             <div class="job-card-content">
@@ -390,7 +403,7 @@
                   </ul>
                 </li>
               </ul>
-              <div class="group-title">Data Architecture & Systems</div>
+              <div class="group-title">Data Architecture &amp; Systems</div>
               <ul>
                 <li>Architect the Advanced Tiering &amp; Learning Analysis System, transforming AR operations from channel-based to ML-driven workflows</li>
                 <li>Design business logic governing ML models for customer scorecards and risk-based cohorts</li>
@@ -411,7 +424,7 @@
         </div>
       </div>
 
-      <!-- 2 -->
+      <!-- Job 2 -->
       <div class="timeline-item">
         <div class="timeline-dot"></div>
         <div class="job-card" onclick="this.classList.toggle('open')">
@@ -420,11 +433,11 @@
               <div class="job-title">AWS Finance Program Manager</div>
               <div class="job-company-line">
                 <span class="job-company">Amazon</span>
-                <span class="job-date">Feb 2019 – Jan 2021</span>
+                <span class="job-date">Feb 2019 &ndash; Jan 2021</span>
               </div>
               <div class="job-tagline">Cross-Functional Programs & Operational Excellence</div>
             </div>
-            <span class="expand-icon">▼</span>
+            <span class="expand-icon">&#9660;</span>
           </div>
           <div class="job-card-body">
             <div class="job-card-content">
@@ -432,6 +445,7 @@
               <ul>
                 <li>Delivered critical support for Global Late Fee program, aligning technical, legal, accounting, and finance stakeholders</li>
                 <li>Redesigned global AWS invoice count logic for variable cost per invoice and long-term operational planning</li>
+                <li>Identify and execute optimization opportunities through situational analysis</li>
               </ul>
               <div class="group-title">Risk Management & Financial Impact</div>
               <ul>
@@ -444,13 +458,14 @@
                 <li>Expand Sales Engagement programs toward Free Cash Flow improvement</li>
                 <li>Serve as Consultant for Virtual Analytics Team with regional Data Analysts</li>
                 <li>Deliver cross-business unit SQL mentorship and technical training workshops</li>
+                <li>Support Global and Regional Accounting teams with data-based reports for annual submissions</li>
               </ul>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 3 -->
+      <!-- Job 3 -->
       <div class="timeline-item">
         <div class="timeline-dot"></div>
         <div class="job-card" onclick="this.classList.toggle('open')">
@@ -459,11 +474,11 @@
               <div class="job-title">Global Process Optimization Advisor</div>
               <div class="job-company-line">
                 <span class="job-company">DELL Technologies</span>
-                <span class="job-date">Jan 2017 – Feb 2019</span>
+                <span class="job-date">Jan 2017 &ndash; Feb 2019</span>
               </div>
               <div class="job-tagline">Global Process Innovation & Governance</div>
             </div>
-            <span class="expand-icon">▼</span>
+            <span class="expand-icon">&#9660;</span>
           </div>
           <div class="job-card-body">
             <div class="job-card-content">
@@ -472,6 +487,7 @@
                 <li>Drove optimization of global reporting structures and delivery models</li>
                 <li>Established global reporting quality governance standards</li>
                 <li>Strengthened cross-departmental KPI connections, creating unified performance visibility</li>
+                <li>Served as primary interface between KPI frameworks and global projects</li>
                 <li>Conducted project reviews assessing global impact and scalability</li>
               </ul>
             </div>
@@ -479,7 +495,7 @@
         </div>
       </div>
 
-      <!-- 4 -->
+      <!-- Job 4 -->
       <div class="timeline-item">
         <div class="timeline-dot"></div>
         <div class="job-card" onclick="this.classList.toggle('open')">
@@ -488,28 +504,39 @@
               <div class="job-title">Listening Post Site Operations Manager</div>
               <div class="job-company-line">
                 <span class="job-company">DELL Technologies</span>
-                <span class="job-date">May 2014 – Jan 2017</span>
+                <span class="job-date">May 2014 &ndash; Jan 2017</span>
               </div>
-              <div class="job-tagline">Global Innovation, Customer Experience &amp; Operational Excellence</div>
+              <div class="job-tagline">Global Innovation, Customer Experience & Operational Excellence</div>
             </div>
-            <span class="expand-icon">▼</span>
+            <span class="expand-icon">&#9660;</span>
           </div>
           <div class="job-card-body">
             <div class="job-card-content">
+              <div class="group-title">Program Leadership &amp; Innovation</div>
               <ul>
                 <li>Managed Global GLP pillars with KPI interlock across internal and OSP sites</li>
                 <li>Led global innovation project implementation and governance</li>
-                <li>Drove customer journey quality review and improvement initiatives</li>
-                <li>Delivered one-screen end-to-end KPI performance dashboards</li>
-                <li>Developed tools using C# and .NET; database admin across Oracle, MSSQL, MySQL</li>
+                <li>Developed and delivered global soft skill innovation programs</li>
                 <li>Spearheaded NetworX Bratislava Site innovation and retail business globalization</li>
+              </ul>
+              <div class="group-title">Customer Experience & Quality</div>
+              <ul>
+                <li>Drove customer journey quality review and improvement initiatives</li>
+                <li>Managed global customer experience programs across internal teams and OSPs</li>
+                <li>Led EMEA hygiene quality sustain governance</li>
+              </ul>
+              <div class="group-title">Systems & Technical Leadership</div>
+              <ul>
+                <li>Delivered one-screen end-to-end KPI performance dashboards for real-time visibility</li>
+                <li>Developed and maintained tools using C# and .NET frameworks</li>
+                <li>Database developer and administrator across Oracle, MSSQL, and MySQL</li>
               </ul>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 5 -->
+      <!-- Job 5 -->
       <div class="timeline-item">
         <div class="timeline-dot"></div>
         <div class="job-card" onclick="this.classList.toggle('open')">
@@ -518,55 +545,17 @@
               <div class="job-title">CSMB Revenue Lead for Outsourcing Partners</div>
               <div class="job-company-line">
                 <span class="job-company">DELL Technologies</span>
-                <span class="job-date">Nov 2012 – May 2014</span>
+                <span class="job-date">Nov 2012 &ndash; May 2014</span>
               </div>
               <div class="job-tagline">Revenue Operations, Partner Management & Strategic Transformation</div>
             </div>
-            <span class="expand-icon">▼</span>
+            <span class="expand-icon">&#9660;</span>
           </div>
           <div class="job-card-body">
             <div class="job-card-content">
               <ul>
                 <li>Primary revenue and quality contact for outsourcing service partners across EMEA</li>
                 <li>Led headcount and site staffing planning aligned with business demand</li>
-                <li>Co-designed System Renewal Global Project</li>
+                <li>Co-designed System Renewal Global Project, contributing to architecture and requirements</li>
                 <li>Led EMEA Point of Need Revenue Quality Control Governance</li>
-                <li>Designed EMEA Quality pillars and governance model across partner network</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 6 -->
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="job-card" onclick="this.classList.toggle('open')">
-          <div class="job-card-header">
-            <div class="job-meta">
-              <div class="job-title">CER PON Revenue Analyst</div>
-              <div class="job-company-line">
-                <span class="job-company">DELL Technologies</span>
-                <span class="job-date">Dec 2011 – Nov 2012</span>
-              </div>
-              <div class="job-tagline">Revenue Strategy, Program Management & Operational Governance</div>
-            </div>
-            <span class="expand-icon">▼</span>
-          </div>
-          <div class="job-card-body">
-            <div class="job-card-content">
-              <ul>
-                <li>Drove EMEA services strategy development and daily governance</li>
-                <li>Revenue program management consultant guiding initiatives from concept to execution</li>
-                <li>Developed services revenue roadmap with cost-benefit analysis</li>
-                <li>Implemented ORL global compliance model across EMEA</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 7 -->
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="
+                <li>Designed EMEA Quality pillars and governance model across partner network
