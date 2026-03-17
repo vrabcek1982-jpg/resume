@@ -1,782 +1,700 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Frantisek Floch | CV</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --primary: #0f172a;
-    --accent: #3b82f6;
-    --accent-glow: rgba(59,130,246,0.15);
-    --text: #1e293b;
-    --text-secondary: #64748b;
-    --bg: #f8fafc;
-    --card: #ffffff;
-    --card-hover: #f1f5f9;
-    --border: #e2e8f0;
-    --nav-bg: rgba(255,255,255,0.85);
-    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-    --shadow-lg: 0 10px 25px rgba(0,0,0,0.07);
-    --radius: 12px;
-    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  [data-theme="dark"] {
-    --primary: #f1f5f9;
-    --accent: #60a5fa;
-    --accent-glow: rgba(96,165,250,0.12);
-    --text: #e2e8f0;
-    --text-secondary: #94a3b8;
-    --bg: #0f172a;
-    --card: #1e293b;
-    --card-hover: #334155;
-    --border: #334155;
-    --nav-bg: rgba(15,23,42,0.9);
-    --shadow: 0 1px 3px rgba(0,0,0,0.3);
-    --shadow-lg: 0 10px 25px rgba(0,0,0,0.4);
+    --cyan: #00bcd4;
+    --cyan-dark: #0097a7;
+    --dark: #1a1a2e;
+    --darker: #12121f;
+    --card-bg: #f5f5f5;
+    --card-bg-alt: #ffffff;
+    --text: #333;
+    --text-light: #666;
+    --text-white: #fff;
+    --shadow: 0 8px 32px rgba(0,0,0,0.15);
+    --shadow-hover: 0 12px 40px rgba(0,0,0,0.25);
+    --radius: 16px;
+    --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   html { scroll-behavior: smooth; }
-
   body {
     font-family: 'Inter', system-ui, sans-serif;
+    background: #e8e8e8;
     color: var(--text);
-    background: var(--bg);
-    line-height: 1.65;
-    font-size: 15px;
-    transition: background var(--transition), color var(--transition);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* MAIN LAYOUT */
+  .resume-wrapper {
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 0;
+    min-height: calc(100vh - 4rem);
+  }
+
+  /* LEFT PANEL */
+  .left-panel {
+    background: var(--darker);
+    border-radius: var(--radius) 0 0 var(--radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    z-index: 10;
+  }
+  .left-panel::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%);
+    z-index: 0;
+  }
+  .left-panel > * { position: relative; z-index: 1; }
+
+  .photo-container {
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid var(--cyan);
+    margin-bottom: 1.5rem;
+    box-shadow: 0 0 30px rgba(0,188,212,0.3);
+  }
+  .photo-container img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(20%);
+    transition: filter var(--transition);
+  }
+  .photo-container:hover img { filter: grayscale(0%); }
+
+  .profile-greeting {
+    color: var(--cyan);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+  }
+  .profile-name {
+    color: var(--text-white);
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+  .profile-title {
+    color: var(--cyan);
+    font-size: 0.95rem;
+    font-weight: 400;
+    font-style: italic;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+    max-width: 260px;
+  }
+  .profile-summary {
+    color: rgba(255,255,255,0.7);
+    font-size: 0.8rem;
+    text-align: center;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  /* Social links */
+  .social-links {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .social-link {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    border: 1.5px solid rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-white);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all var(--transition);
+  }
+  .social-link:hover {
+    background: var(--cyan);
+    border-color: var(--cyan);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,188,212,0.4);
+  }
+  .social-link svg { width: 18px; height: 18px; fill: currentColor; }
+
+  /* Contact items in left panel */
+  .contact-list {
+    width: 100%;
+    list-style: none;
+    margin-top: auto;
+  }
+  .contact-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.75);
+    font-size: 0.8rem;
+  }
+  .contact-list li:last-child { border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .contact-list .icon-circle {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(0,188,212,0.15);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--cyan); font-size: 0.85rem; flex-shrink: 0;
+  }
+  .contact-list a { color: rgba(255,255,255,0.75); text-decoration: none; }
+  .contact-list a:hover { color: var(--cyan); }
+
+  /* RIGHT PANEL */
+  .right-panel {
+    background: #ddd;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    overflow-y: auto;
     overflow-x: hidden;
   }
 
-  /* NAV */
-  .nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: var(--nav-bg);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    transition: background var(--transition), border var(--transition);
+  /* HORIZONTAL CARD ROWS */
+  .card-row {
+    display: flex;
+    gap: 0;
+    position: relative;
+    min-height: 280px;
   }
-  .nav-inner {
-    max-width: 1000px; margin: 0 auto;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0.75rem 1.5rem;
-  }
-  .nav-brand { font-weight: 700; font-size: 1rem; color: var(--primary); }
-  .nav-links { display: flex; gap: 0.25rem; align-items: center; }
-  .nav-links a {
-    color: var(--text-secondary); text-decoration: none;
-    padding: 0.4rem 0.75rem; border-radius: 8px; font-size: 0.85rem; font-weight: 500;
+
+  .h-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    box-shadow: var(--shadow);
+    cursor: pointer;
     transition: all var(--transition);
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
   }
-  .nav-links a:hover, .nav-links a.active {
-    color: var(--accent); background: var(--accent-glow);
+  .h-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 4px; height: 100%;
+    background: var(--cyan);
+    border-radius: 4px 0 0 4px;
+    opacity: 0;
+    transition: opacity var(--transition);
   }
-  .theme-toggle {
-    background: none; border: 2px solid var(--border); border-radius: 8px;
-    padding: 0.4rem 0.6rem; cursor: pointer; font-size: 1rem;
-    color: var(--text); transition: all var(--transition); margin-left: 0.5rem;
-  }
-  .theme-toggle:hover { border-color: var(--accent); background: var(--accent-glow); }
+  .h-card:hover::before, .h-card.active::before { opacity: 1; }
+  .h-card:hover { box-shadow: var(--shadow-hover); }
 
-  /* HERO */
-  .hero {
-    min-height: 100vh; display: flex; align-items: center; justify-content: center;
-    padding: 6rem 1.5rem 4rem; position: relative; overflow: hidden;
-  }
-  .hero-bg {
-    position: absolute; inset: 0; z-index: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 50% -20%, var(--accent-glow), transparent),
-      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(139,92,246,0.08), transparent);
-  }
-  .hero-content { position: relative; z-index: 1; text-align: center; max-width: 700px; }
-  .hero-badge {
-    display: inline-block; padding: 0.35rem 1rem; border-radius: 50px;
-    background: var(--accent-glow); color: var(--accent);
-    font-size: 0.8rem; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 1.5rem;
-    border: 1px solid rgba(59,130,246,0.2);
-  }
-  .hero h1 {
-    font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 800;
-    color: var(--primary); line-height: 1.15; margin-bottom: 0.75rem;
-    letter-spacing: -1px;
-  }
-  .hero h1 .accent { color: var(--accent); }
-  .hero-subtitle {
-    font-size: 1.1rem; color: var(--text-secondary); max-width: 550px;
-    margin: 0 auto 2rem; line-height: 1.7;
-  }
-  .hero-cta { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
-  .btn {
-    display: inline-flex; align-items: center; gap: 0.4rem;
-    padding: 0.7rem 1.5rem; border-radius: 10px; font-size: 0.9rem;
-    font-weight: 600; text-decoration: none; transition: all var(--transition); cursor: pointer; border: none;
-  }
-  .btn-primary {
-    background: var(--accent); color: #fff;
-    box-shadow: 0 4px 14px rgba(59,130,246,0.35);
-  }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59,130,246,0.45); }
-  .btn-outline {
-    background: transparent; color: var(--text);
-    border: 2px solid var(--border);
-  }
-  .btn-outline:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
-
-  /* SECTIONS */
-  .container { max-width: 1000px; margin: 0 auto; padding: 0 1.5rem; }
-  section { padding: 5rem 0; }
-  .section-label {
-    display: inline-block; font-size: 0.75rem; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 2px; color: var(--accent);
-    margin-bottom: 0.5rem;
-  }
-  .section-heading {
-    font-size: 1.8rem; font-weight: 700; color: var(--primary);
-    margin-bottom: 2rem; letter-spacing: -0.5px;
+  /* Stacked cards layout */
+  .stack-container {
+    display: flex;
+    position: relative;
+    width: 100%;
+    min-height: 320px;
   }
 
-  /* SKILLS */
-  .skills-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1rem;
-  }
-  .skill-card {
-    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 1.25rem 1.5rem; transition: all var(--transition);
+  .stack-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 2rem;
     box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: absolute;
+    top: 0;
+    width: 48%;
+    min-height: 300px;
+    overflow-y: auto;
+    max-height: 500px;
   }
-  .skill-card:hover {
-    transform: translateY(-3px); box-shadow: var(--shadow-lg);
-    border-color: var(--accent);
-  }
-  .skill-card-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
-  .skill-card h3 { font-size: 0.9rem; font-weight: 700; color: var(--primary); margin-bottom: 0.4rem; }
-  .skill-card p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+  .stack-card::-webkit-scrollbar { width: 4px; }
+  .stack-card::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 4px; }
 
-  /* TIMELINE */
-  .timeline-container { position: relative; }
-  .timeline-line {
-    position: absolute; left: 20px; top: 0; bottom: 0; width: 2px;
-    background: linear-gradient(to bottom, var(--accent), var(--border));
+  .stack-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 5px; height: 100%;
+    background: var(--cyan);
+    border-radius: var(--radius) 0 0 var(--radius);
+    transition: opacity var(--transition);
   }
-  .timeline-item {
-    position: relative; padding-left: 52px; margin-bottom: 1rem;
-    opacity: 0; transform: translateY(20px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-  .timeline-item.visible { opacity: 1; transform: translateY(0); }
-  .timeline-dot {
-    position: absolute; left: 12px; top: 1.5rem; width: 18px; height: 18px;
-    border-radius: 50%; background: var(--bg); border: 3px solid var(--accent);
-    z-index: 2; transition: all var(--transition);
-  }
-  .timeline-item:hover .timeline-dot { background: var(--accent); transform: scale(1.2); }
 
-  .job-card {
-    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
-    overflow: hidden; transition: all var(--transition); box-shadow: var(--shadow);
-  }
-  .job-card:hover { box-shadow: var(--shadow-lg); border-color: var(--accent); }
-  .job-card-header {
-    padding: 1.25rem 1.5rem; cursor: pointer; display: flex;
-    justify-content: space-between; align-items: flex-start; gap: 1rem;
-    user-select: none;
-  }
-  .job-card-header:hover { background: var(--card-hover); }
-  .job-meta { flex: 1; }
-  .job-title { font-size: 1.05rem; font-weight: 700; color: var(--primary); margin-bottom: 0.15rem; }
-  .job-company-line {
-    display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
-    font-size: 0.85rem; margin-bottom: 0.2rem;
-  }
-  .job-company { color: var(--accent); font-weight: 600; }
-  .job-date { color: var(--text-secondary); }
-  .job-tagline { font-size: 0.8rem; color: var(--text-secondary); font-style: italic; }
-  .expand-icon {
-    font-size: 1.2rem; color: var(--text-secondary); transition: transform var(--transition);
-    flex-shrink: 0; margin-top: 0.25rem;
-  }
-  .job-card.open .expand-icon { transform: rotate(180deg); }
+  /* Experience row: 2 stacked cards */
+  .exp-row .stack-card:nth-child(1) { left: 0; z-index: 3; }
+  .exp-row .stack-card:nth-child(2) { left: 52%; z-index: 2; }
 
-  .job-card-body {
+  .exp-row .stack-card.active {
+    z-index: 10;
+    box-shadow: var(--shadow-hover);
+    transform: scale(1.02);
+  }
+  .exp-row .stack-card:not(.active) {
+    opacity: 0.7;
+    transform: scale(0.97);
+  }
+  .exp-row .stack-card:not(.active):hover {
+    opacity: 0.9;
+    transform: scale(0.99);
+  }
+
+  /* Skills row: 3 overlapping cards */
+  .skills-row {
+    display: flex;
+    position: relative;
+    width: 100%;
+    min-height: 260px;
+  }
+  .skills-row .stack-card {
+    width: 36%;
+    min-height: 240px;
+  }
+  .skills-row .stack-card:nth-child(1) { left: 0; z-index: 3; }
+  .skills-row .stack-card:nth-child(2) { left: 33%; z-index: 2; }
+  .skills-row .stack-card:nth-child(3) { left: 66%; z-index: 1; }
+
+  .skills-row .stack-card.active {
+    z-index: 10;
+    box-shadow: var(--shadow-hover);
+    transform: scale(1.03);
+  }
+  .skills-row .stack-card:not(.active) {
+    opacity: 0.6;
+    transform: scale(0.96);
+  }
+  .skills-row .stack-card:not(.active):hover {
+    opacity: 0.85;
+    transform: scale(0.98);
+  }
+
+  /* Card content styles */
+  .card-label {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--cyan);
+    margin-bottom: 0.25rem;
+  }
+  .card-heading {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 0.25rem;
+  }
+  .card-subtitle {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--text-light);
+    margin-bottom: 1.25rem;
+  }
+
+  /* Timeline inside cards */
+  .mini-timeline { position: relative; padding-left: 1.25rem; }
+  .mini-timeline::before {
+    content: '';
+    position: absolute; left: 4px; top: 0; bottom: 0;
+    width: 2px; background: linear-gradient(to bottom, var(--cyan), #ddd);
+  }
+  .mini-timeline-item {
+    position: relative;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+  }
+  .mini-timeline-item::before {
+    content: '';
+    position: absolute; left: -1.25rem; top: 0.35rem;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: #fff; border: 2.5px solid var(--cyan);
+    z-index: 1;
+  }
+  .mini-timeline-item:first-child::before { background: var(--cyan); }
+  .mt-title { font-size: 0.9rem; font-weight: 700; color: var(--dark); }
+  .mt-company { font-size: 0.8rem; color: var(--cyan); font-weight: 600; }
+  .mt-date { font-size: 0.75rem; color: var(--text-light); }
+  .mt-details {
     max-height: 0; overflow: hidden;
-    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: max-height 0.4s ease;
   }
-  .job-card.open .job-card-body { max-height: 2000px; }
-  .job-card-content { padding: 0 1.5rem 1.5rem; }
-  .job-card-content .group-title {
-    font-size: 0.8rem; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 1px; color: var(--accent); margin: 1rem 0 0.4rem;
+  .mini-timeline-item.open .mt-details { max-height: 600px; }
+  .mt-details ul { list-style: none; padding: 0.5rem 0 0; }
+  .mt-details li {
+    position: relative; padding-left: 0.85rem;
+    font-size: 0.8rem; color: var(--text); margin-bottom: 0.25rem; line-height: 1.5;
   }
-  .job-card-content ul { list-style: none; padding: 0; }
-  .job-card-content li {
-    position: relative; padding-left: 1rem; margin-bottom: 0.35rem;
-    font-size: 0.88rem; color: var(--text); line-height: 1.6;
-  }
-  .job-card-content li::before {
-    content: ''; position: absolute; left: 0; top: 0.6rem;
-    width: 5px; height: 5px; border-radius: 50%; background: var(--accent);
-  }
-  .job-card-content ul ul { margin: 0.25rem 0 0.25rem 0.75rem; }
-  .job-card-content ul ul li::before { background: var(--text-secondary); width: 4px; height: 4px; }
-
-  /* CONTACT */
-  .contact-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-  }
-  .contact-card {
-    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 1.5rem; text-align: center; transition: all var(--transition);
-    box-shadow: var(--shadow);
-  }
-  .contact-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--accent); }
-  .contact-card .icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
-  .contact-card .label { font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
-  .contact-card .value { font-size: 0.95rem; color: var(--primary); font-weight: 600; margin-top: 0.25rem; }
-  .contact-card a { color: var(--primary); text-decoration: none; }
-  .contact-card a:hover { color: var(--accent); }
-
-  /* SCROLL TOP */
-  .scroll-top {
-    position: fixed; bottom: 2rem; right: 2rem; z-index: 90;
-    width: 44px; height: 44px; border-radius: 50%;
-    background: var(--accent); color: #fff; border: none;
-    font-size: 1.2rem; cursor: pointer; box-shadow: 0 4px 14px rgba(59,130,246,0.4);
-    opacity: 0; transform: translateY(10px);
-    transition: all var(--transition); display: flex; align-items: center; justify-content: center;
-  }
-  .scroll-top.visible { opacity: 1; transform: translateY(0); }
-  .scroll-top:hover { transform: translateY(-3px); }
-
-  /* FOOTER */
-  footer {
-    text-align: center; padding: 2rem 1.5rem;
-    font-size: 0.8rem; color: var(--text-secondary);
-    border-top: 1px solid var(--border);
+  .mt-details li::before {
+    content: ''; position: absolute; left: 0; top: 0.5rem;
+    width: 4px; height: 4px; border-radius: 50%; background: var(--cyan);
   }
 
-  /* MOBILE */
-  .nav-toggle { display: none; background: none; border: none; font-size: 1.3rem; color: var(--text); cursor: pointer; padding: 0.4rem; }
+  /* Skill list */
+  .skill-list { list-style: none; }
+  .skill-list li {
+    display: flex; align-items: flex-start; gap: 0.5rem;
+    font-size: 0.85rem; color: var(--text); margin-bottom: 0.4rem; line-height: 1.5;
+  }
+  .skill-list .check { color: var(--cyan); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
 
-  @media (max-width: 640px) {
-    .nav-links {
-      display: none; position: absolute; top: 100%; left: 0; right: 0;
-      background: var(--nav-bg); backdrop-filter: blur(12px);
-      flex-direction: column; padding: 0.5rem; border-bottom: 1px solid var(--border);
+  /* Click hint */
+  .click-hint {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    opacity: 0.6;
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .resume-wrapper {
+      grid-template-columns: 1fr;
+      gap: 0;
     }
-    .nav-links.open { display: flex; }
-    .nav-toggle { display: block; }
-    .hero h1 { font-size: 2rem; }
-    .timeline-line { left: 14px; }
-    .timeline-item { padding-left: 40px; }
-    .timeline-dot { left: 6px; width: 16px; height: 16px; }
-    section { padding: 3rem 0; }
+    .left-panel {
+      border-radius: var(--radius) var(--radius) 0 0;
+      padding: 2rem 1.5rem;
+    }
+    .right-panel {
+      border-radius: 0 0 var(--radius) var(--radius);
+      padding: 1.5rem;
+    }
+    .stack-container { flex-direction: column; min-height: auto; }
+    .stack-card {
+      position: relative !important;
+      width: 100% !important;
+      left: 0 !important;
+      margin-bottom: 1rem;
+      min-height: auto !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+    .stack-card.active { transform: none !important; }
+    .skills-row { flex-direction: column; min-height: auto; }
+    .skills-row .stack-card {
+      position: relative !important;
+      width: 100% !important;
+      left: 0 !important;
+    }
   }
-
-  /* ANIMATIONS */
-  .fade-in {
-    opacity: 0; transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-  .fade-in.visible { opacity: 1; transform: translateY(0); }
 
   @media print {
-    .nav, .scroll-top, .theme-toggle, .hero-cta { display: none; }
-    .hero { min-height: auto; padding: 2rem 1.5rem; }
-    .job-card-body { max-height: none; }
-    .timeline-item { opacity: 1; transform: none; }
-    .fade-in { opacity: 1; transform: none; }
-    section { padding: 1.5rem 0; }
+    .resume-wrapper { grid-template-columns: 280px 1fr; }
+    .stack-card { position: relative !important; width: 100% !important; left: 0 !important; opacity: 1 !important; transform: none !important; break-inside: avoid; }
+    .mt-details { max-height: none !important; }
+    .skills-row .stack-card { position: relative !important; width: 100% !important; left: 0 !important; }
   }
 </style>
 </head>
 <body>
 
-<!-- Nav -->
-<nav class="nav" role="navigation" aria-label="Main navigation">
-  <div class="nav-inner">
-    <span class="nav-brand">FF</span>
-    <button class="nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">&#9776;</button>
-    <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#experience">Experience</a>
-      <a href="#contact">Contact</a>
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">&#127769;</button>
+<div class="resume-wrapper">
+
+  <!-- LEFT PANEL -->
+  <aside class="left-panel">
+    <div class="photo-container">
+      <img src="photo.jpg" alt="Frantisek Floch" onerror="this.style.display='none'">
     </div>
-  </div>
-</nav>
+    <div class="profile-greeting">Hello, I am</div>
+    <h1 class="profile-name">Frantisek Floch</h1>
+    <p class="profile-title">AWS AR Global Data Lead<br>Data Research &amp; Analytics Leader</p>
+    <p class="profile-summary">Driving optimization, predictive modeling, and strategic forecasting across global finance operations. Bridging technical capabilities with business needs for measurable impact.</p>
 
-<!-- Hero -->
-<section class="hero" id="about">
-  <div class="hero-bg"></div>
-  <div class="hero-content">
-    <div class="hero-badge">Data Research &amp; Analytics Leader</div>
-    <h1>Frantisek <span class="accent">Floch</span></h1>
-    <p class="hero-subtitle">Driving optimization, predictive modeling, and strategic forecasting solutions across global finance operations. Bridging technical capabilities with business needs to deliver measurable impact.</p>
-    <div class="hero-cta">
-      <a href="#experience" class="btn btn-primary">View Experience &#8595;</a>
-      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    <div class="social-links">
+      <a href="https://www.linkedin.com/in/frantisek-floch-6927818/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="mailto:FrantisekFloch82@gmail.com" class="social-link" aria-label="Email">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </a>
+      <a href="tel:+421948960600" class="social-link" aria-label="Phone">
+        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+      </a>
     </div>
-  </div>
-</section>
 
-<!-- Skills -->
-<section id="skills">
-  <div class="container">
-    <span class="section-label">Expertise</span>
-    <h2 class="section-heading">Skills &amp; Qualifications</h2>
-    <div class="skills-grid">
-      <div class="skill-card fade-in">
-        <div class="skill-card-icon">&#128187;</div>
-        <h3>Technical</h3>
-        <p>SQL (Advanced) &middot; C# &middot; .NET &middot; Excel &middot; Power BI &middot; MS Office &middot; Visio/Draw.io &middot; IT &amp; Server Infrastructure &middot; Python</p>
-      </div>
-      <div class="skill-card fade-in">
-        <div class="skill-card-icon">&#128202;</div>
-        <h3>Analytics</h3>
-        <p>Predictive Modeling &middot; Strategic Forecasting &middot; Process Automation &middot; Free Cash Flow &amp; Headcount Planning &middot; ML Integration &middot; Data Governance</p>
-      </div>
-      <div class="skill-card fade-in">
-        <div class="skill-card-icon">&#129309;</div>
-        <h3>Leadership</h3>
-        <p>Cross-Functional Collaboration &middot; Stakeholder Communication &middot; Presentations &middot; Technical Mentorship &middot; Virtual Team Management</p>
-      </div>
-      <div class="skill-card fade-in">
-        <div class="skill-card-icon">&#127758;</div>
-        <h3>Languages</h3>
-        <p>Slovak (Native) &middot; English (Fluent) &middot; German (Proficient) &middot; Spanish (Learning)</p>
-      </div>
-      <div class="skill-card fade-in">
-        <div class="skill-card-icon">&#127941;</div>
-        <h3>Certifications</h3>
-        <p>Lean Six Sigma &mdash; 2&times; Yellow Belt, 5&times; Green Belt &middot; Certified Soft Skills Trainer</p>
-      </div>
-    </div>
-  </div>
-</section>
+    <ul class="contact-list">
+      <li>
+        <span class="icon-circle">&#128205;</span>
+        Bratislava, Slovakia
+      </li>
+      <li>
+        <span class="icon-circle">&#9993;</span>
+        <a href="mailto:FrantisekFloch82@gmail.com">FrantisekFloch82@gmail.com</a>
+      </li>
+      <li>
+        <span class="icon-circle">&#128222;</span>
+        <a href="tel:+421948960600">+421 948 960 600</a>
+      </li>
+    </ul>
+  </aside>
 
-<!-- Experience -->
-<section id="experience">
-  <div class="container">
-    <span class="section-label">Career</span>
-    <h2 class="section-heading">Professional Experience</h2>
-    <div class="timeline-container">
-      <div class="timeline-line"></div>
+  <!-- RIGHT PANEL -->
+  <main class="right-panel">
 
-      <!-- Job 1 -->
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="job-card" onclick="this.classList.toggle('open')">
-          <div class="job-card-header">
-            <div class="job-meta">
-              <div class="job-title">AWS AR Global Data Lead</div>
-              <div class="job-company-line">
-                <span class="job-company">Amazon</span>
-                <span class="job-date">Jan 2021 &ndash; Present</span>
+    <!-- EXPERIENCE ROW 1: Amazon roles -->
+    <div>
+      <span class="card-label">Experience</span>
+      <div class="stack-container exp-row">
+
+        <!-- Amazon Card -->
+        <div class="stack-card active" onclick="activateCard(this)">
+          <div class="card-heading">Amazon</div>
+          <div class="card-subtitle">Jan 2021 &ndash; Present</div>
+          <div class="mini-timeline">
+
+            <div class="mini-timeline-item open" onclick="event.stopPropagation(); this.classList.toggle('open')">
+              <div class="mt-title">AWS AR Global Data Lead</div>
+              <div class="mt-company">Data Architecture &amp; Advanced Analytics</div>
+              <div class="mt-date">Jan 2021 &ndash; Present</div>
+              <div class="mt-details">
+                <ul>
+                  <li>Lead AI development teams building predictive models for FinOps, Billing, Customer Service, Finance and Sales</li>
+                  <li>Architect unified recommendation engine consolidating all AI efforts into a single cohesive output</li>
+                  <li>Architect the Advanced Tiering &amp; Learning Analysis System, transforming AR to ML-driven workflows</li>
+                  <li>Develop Revenue and Receivables forecast models including free cash flow, headcount planning, ROI</li>
+                  <li>Establish data governance guardrails and build strategic partnerships across Finance functions</li>
+                </ul>
               </div>
-              <div class="job-tagline">Data Architecture &amp; Advanced Analytics</div>
             </div>
-            <span class="expand-icon">&#9660;</span>
-          </div>
-          <div class="job-card-body">
-            <div class="job-card-content">
-              <div class="group-title">AI/ML Development &amp; Leadership</div>
-              <ul>
-                <li>Lead AI development teams to build predictive and analytical models used by FinOps, FinAuto, Billing, Customer Service, Finance and Sales</li>
-                <li>Establish continuous improvement cycles by evaluating model outputs against real-world results through feedback loops</li>
-                <li>Develop and document SOPs for AI-readable environments, enabling seamless human-ML integration</li>
-                <li>Architect unified recommendation engine consolidating all AI efforts into a single output:
-                  <ul>
-                    <li>Customer email communication history summary</li>
-                    <li>Behavior trends and development over time</li>
-                    <li>Free cash flow risk assessment</li>
-                    <li>Human vs. automated handling recommendation</li>
-                    <li>Next-step actions (proprietary Atlas model)</li>
-                  </ul>
-                </li>
-              </ul>
-              <div class="group-title">Data Architecture &amp; Systems</div>
-              <ul>
-                <li>Architect the Advanced Tiering &amp; Learning Analysis System, transforming AR operations from channel-based to ML-driven workflows</li>
-                <li>Design business logic governing ML models for customer scorecards and risk-based cohorts</li>
-                <li>Drive end-to-end transformation through advanced analytics, predictive modeling, and intelligent automation</li>
-              </ul>
-              <div class="group-title">Forecasting & Analytics</div>
-              <ul>
-                <li>Develop Revenue and Receivables forecast models including free cash flow, headcount planning, ROI, and invoice count headwinds</li>
-                <li>Lead data integrity initiatives, process automation, and cash reconciliation across global Finance operations</li>
-              </ul>
-              <div class="group-title">Data Governance & Standards</div>
-              <ul>
-                <li>Establish guardrails for long-term data integrity within governance frameworks</li>
-                <li>Build strategic partnerships across Receivables, Accounting, Finance, Sales, Customer Support, and Billing</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Job 2 -->
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="job-card" onclick="this.classList.toggle('open')">
-          <div class="job-card-header">
-            <div class="job-meta">
-              <div class="job-title">AWS Finance Program Manager</div>
-              <div class="job-company-line">
-                <span class="job-company">Amazon</span>
-                <span class="job-date">Feb 2019 &ndash; Jan 2021</span>
+            <div class="mini-timeline-item" onclick="event.stopPropagation(); this.classList.toggle('open')">
+              <div class="mt-title">AWS Finance Program Manager</div>
+              <div class="mt-company">Cross-Functional Programs &amp; Operational Excellence</div>
+              <div class="mt-date">Feb 2019 &ndash; Jan 2021</div>
+              <div class="mt-details">
+                <ul>
+                  <li>Delivered Global Late Fee program aligning technical, legal, accounting, and finance stakeholders</li>
+                  <li>Drive proactive Bad Debt and Fraud identification to prevent P&amp;L impact</li>
+                  <li>Redesigned global AWS invoice count logic for long-term operational planning</li>
+                  <li>Deliver cross-business unit SQL mentorship and technical training workshops</li>
+                </ul>
               </div>
-              <div class="job-tagline">Cross-Functional Programs & Operational Excellence</div>
             </div>
-            <span class="expand-icon">&#9660;</span>
-          </div>
-          <div class="job-card-body">
-            <div class="job-card-content">
-              <div class="group-title">Program Leadership</div>
-              <ul>
-                <li>Delivered critical support for Global Late Fee program, aligning technical, legal, accounting, and finance stakeholders</li>
-                <li>Redesigned global AWS invoice count logic for variable cost per invoice and long-term operational planning</li>
-                <li>Identify and execute optimization opportunities through situational analysis</li>
-              </ul>
-              <div class="group-title">Risk Management & Financial Impact</div>
-              <ul>
-                <li>Drive proactive Bad Debt and Fraud identification to prevent P&amp;L impact</li>
-                <li>Identify VAT reclaim potential for suspended accounts across US, UK and Germany</li>
-                <li>Develop scalable top accounts analysis to train AI models on decision-making patterns</li>
-              </ul>
-              <div class="group-title">Stakeholder Management &amp; Mentorship</div>
-              <ul>
-                <li>Expand Sales Engagement programs toward Free Cash Flow improvement</li>
-                <li>Serve as Consultant for Virtual Analytics Team with regional Data Analysts</li>
-                <li>Deliver cross-business unit SQL mentorship and technical training workshops</li>
-                <li>Support Global and Regional Accounting teams with data-based reports for annual submissions</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Job 3 -->
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="job-card" onclick="this.classList.toggle('open')">
-          <div class="job-card-header">
-            <div class="job-meta">
-              <div class="job-title">Global Process Optimization Advisor</div>
-              <div class="job-company-line">
-                <span class="job-company">DELL Technologies</span>
-                <span class="job-date">Jan 2017 &ndash; Feb 2019</span>
+          </div>
+          <div class="click-hint">Click roles to expand details</div>
+        </div>
+
+        <!-- Dell Card -->
+        <div class="stack-card" onclick="activateCard(this)">
+          <div class="card-heading">DELL Technologies</div>
+          <div class="card-subtitle">Jun 2005 &ndash; Feb 2019</div>
+          <div class="mini-timeline">
+
+            <div class="mini-timeline-item" onclick="event.stopPropagation(); this.classList.toggle('open')">
+              <div class="mt-title">Global Process Optimization Advisor</div>
+              <div class="mt-date">Jan 2017 &ndash; Feb 2019</div>
+              <div class="mt-details">
+                <ul>
+                  <li>Led global process innovation and sustained governance across multiple business units</li>
+                  <li>Established global reporting quality governance standards</li>
+                  <li>Strengthened cross-departmental KPI connections for unified performance visibility</li>
+                </ul>
               </div>
-              <div class="job-tagline">Global Process Innovation & Governance</div>
             </div>
-            <span class="expand-icon">&#9660;</span>
-          </div>
-          <div class="job-card-body">
-            <div class="job-card-content">
-              <ul>
-                <li>Led global process innovation initiatives and sustained governance frameworks across multiple business units</li>
-                <li>Drove optimization of global reporting structures and delivery models</li>
-                <li>Established global reporting quality governance standards</li>
-                <li>Strengthened cross-departmental KPI connections, creating unified performance visibility</li>
-                <li>Served as primary interface between KPI frameworks and global projects</li>
-                <li>Conducted project reviews assessing global impact and scalability</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Job 4 -->
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="job-card" onclick="this.classList.toggle('open')">
-          <div class="job-card-header">
-            <div class="job-meta">
-              <div class="job-title">Listening Post Site Operations Manager</div>
-              <div class="job-company-line">
-                <span class="job-company">DELL Technologies</span>
-                <span class="job-date">May 2014 &ndash; Jan 2017</span>
+            <div class="mini-timeline-item" onclick="event.stopPropagation(); this.classList.toggle('open')">
+              <div class="mt-title">Listening Post Site Operations Manager</div>
+              <div class="mt-date">May 2014 &ndash; Jan 2017</div>
+              <div class="mt-details">
+                <ul>
+                  <li>Managed Global GLP pillars with KPI interlock across internal and OSP sites</li>
+                  <li>Delivered one-screen end-to-end KPI performance dashboards</li>
+                  <li>Developed tools using C# and .NET; DB admin across Oracle, MSSQL, MySQL</li>
+                </ul>
               </div>
-              <div class="job-tagline">Global Innovation, Customer Experience & Operational Excellence</div>
             </div>
-            <span class="expand-icon">&#9660;</span>
-          </div>
-          <div class="job-card-body">
-            <div class="job-card-content">
-              <div class="group-title">Program Leadership &amp; Innovation</div>
-              <ul>
-                <li>Managed Global GLP pillars with KPI interlock across internal and OSP sites</li>
-                <li>Led global innovation project implementation and governance</li>
-                <li>Developed and delivered global soft skill innovation programs</li>
-                <li>Spearheaded NetworX Bratislava Site innovation and retail business globalization</li>
-              </ul>
-              <div class="group-title">Customer Experience & Quality</div>
-              <ul>
-                <li>Drove customer journey quality review and improvement initiatives</li>
-                <li>Managed global customer experience programs across internal teams and OSPs</li>
-                <li>Led EMEA hygiene quality sustain governance</li>
-              </ul>
-              <div class="group-title">Systems & Technical Leadership</div>
-              <ul>
-                <li>Delivered one-screen end-to-end KPI performance dashboards for real-time visibility</li>
-                <li>Developed and maintained tools using C# and .NET frameworks</li>
-                <li>Database developer and administrator across Oracle, MSSQL, and MySQL</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Job 5 -->
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="job-card" onclick="this.classList.toggle('open')">
-          <div class="job-card-header">
-            <div class="job-meta">
-              <div class="job-title">CSMB Revenue Lead for Outsourcing Partners</div>
-              <div class="job-company-line">
-                <span class="job-company">DELL Technologies</span>
-                <span class="job-date">Nov 2012 &ndash; May 2014</span>
+            <div class="mini-timeline-item" onclick="event.stopPropagation(); this.classList.toggle('open')">
+              <div class="mt-title">CSMB Revenue Lead for Outsourcing Partners</div>
+              <div class="mt-date">Nov 2012 &ndash; May 2014</div>
+              <div class="mt-details">
+                <ul>
+                  <li>Primary revenue and quality contact for OSPs across EMEA</li>
+                  <li>Co-designed System Renewal Global Project</li>
+                  <li>Designed EMEA Quality pillars and governance model</li>
+                </ul>
               </div>
-              <div class="job-tagline">Revenue Operations, Partner Management & Strategic Transformation</div>
             </div>
-            <span class="expand-icon">&#9660;</span>
-          </div>
-          <div class="job-card-body">
-            <div class="job-card-content">
-              <ul>
-                <li>Primary revenue and quality contact for outsourcing service partners across EMEA</li>
-                <li>Led headcount and site staffing planning aligned with business demand</li>
-                <li>Co-designed System Renewal Global Project, contributing to architecture and requirements</li>
-                <li>Led EMEA Point of Need Revenue Quality Control Governance</li>
-                <li>Designed EMEA Quality pillars and governance model across partner network</li>
-                <li>Led Cost of Dissatisfaction governance as part of P&amp;L management</li>
-                <li>Coordinated revenue customer effort initiatives and developed OSP resolution-based selling campaigns</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Job 6 -->
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="job-card" onclick="this.classList.toggle('open')">
-          <div class="job-card-header">
-            <div class="job-meta">
-              <div class="job-title">CER PON Revenue Analyst</div>
-              <div class="job-company-line">
-                <span class="job-company">DELL Technologies</span>
-                <span class="job-date">Dec 2011 &ndash; Nov 2012</span>
+            <div class="mini-timeline-item" onclick="event.stopPropagation(); this.classList.toggle('open')">
+              <div class="mt-title">CER PON Revenue Analyst</div>
+              <div class="mt-date">Dec 2011 &ndash; Nov 2012</div>
+              <div class="mt-details">
+                <ul>
+                  <li>Drove EMEA services strategy development and daily governance</li>
+                  <li>Developed services revenue roadmap with cost-benefit analysis</li>
+                  <li>Implemented ORL global compliance model across EMEA</li>
+                </ul>
               </div>
-              <div class="job-tagline">Revenue Strategy, Program Management & Operational Governance</div>
             </div>
-            <span class="expand-icon">&#9660;</span>
-          </div>
-          <div class="job-card-body">
-            <div class="job-card-content">
-              <ul>
-                <li>Drove EMEA services strategy development and daily governance oversight</li>
-                <li>Revenue program management consultant guiding initiatives from concept to execution</li>
-                <li>Developed services revenue roadmap with comprehensive cost-benefit analysis</li>
-                <li>Implemented ORL global compliance model across EMEA and outsourced service partners</li>
-                <li>Managed services OWR pricing governance and review processes</li>
-                <li>Served as point of contact for CER, NER, and SER revenue projects</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Job 7 -->
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="job-card" onclick="this.classList.toggle('open')">
-          <div class="job-card-header">
-            <div class="job-meta">
-              <div class="job-title">Revenue Learning Coordinator</div>
-              <div class="job-company-line">
-                <span class="job-company">DELL Technologies</span>
-                <span class="job-date">Nov 2009 &ndash; Jan 2012</span>
+            <div class="mini-timeline-item" onclick="event.stopPropagation(); this.classList.toggle('open')">
+              <div class="mt-title">Revenue Learning Coordinator</div>
+              <div class="mt-date">Nov 2009 &ndash; Jan 2012</div>
+              <div class="mt-details">
+                <ul>
+                  <li>Coordinated EMEA trainers across revenue and new hire projects</li>
+                  <li>EMEA subject matter expert for revenue compliance</li>
+                </ul>
               </div>
-              <div class="job-tagline">Training Coordination, Revenue Compliance & Process Development</div>
             </div>
-            <span class="expand-icon">&#9660;</span>
-          </div>
-          <div class="job-card-body">
-            <div class="job-card-content">
-              <ul>
-                <li>Coordinated EMEA trainers and coaches across revenue and new hire projects</li>
-                <li>EMEA subject matter expert for revenue compliance and processes</li>
-                <li>Developed effective information delivery training programs for EMEA region</li>
-                <li>Revenue single point of contact for outsourcing service partners</li>
-                <li>Served as new processes and projects point of contact for EMEA PMO</li>
-                <li>Implemented SMB revenue business processes for consumer services</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Job 8 -->
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="job-card" onclick="this.classList.toggle('open')">
-          <div class="job-card-header">
-            <div class="job-meta">
-              <div class="job-title">Services Soft Skills Coach</div>
-              <div class="job-company-line">
-                <span class="job-company">DELL Technologies</span>
-                <span class="job-date">Dec 2007 &ndash; Nov 2009</span>
+            <div class="mini-timeline-item" onclick="event.stopPropagation(); this.classList.toggle('open')">
+              <div class="mt-title">Services Soft Skills Coach</div>
+              <div class="mt-date">Dec 2007 &ndash; Nov 2009</div>
+              <div class="mt-details">
+                <ul>
+                  <li>Quality and performance responsibility for desktop support teams</li>
+                  <li>Developed and implemented process improvement pilots</li>
+                </ul>
               </div>
-              <div class="job-tagline">Coaching, Quality & Process Improvement</div>
             </div>
-            <span class="expand-icon">&#9660;</span>
-          </div>
-          <div class="job-card-body">
-            <div class="job-card-content">
-              <ul>
-                <li>Quality and performance responsibility for desktop support teams</li>
-                <li>Coached agents through call monitoring and developed productivity training</li>
-                <li>Owned customer and hygiene control review processes and corrective actions</li>
-                <li>Developed and implemented process improvement pilots</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <!-- Job 9 -->
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="job-card" onclick="this.classList.toggle('open')">
-          <div class="job-card-header">
-            <div class="job-meta">
-              <div class="job-title">XPS Premium Support Specialist</div>
-              <div class="job-company-line">
-                <span class="job-company">DELL Technologies</span>
-                <span class="job-date">Jun 2005 &ndash; Dec 2007</span>
+                        <div class="mini-timeline-item" onclick="event.stopPropagation(); this.classList.toggle('open')">
+              <div class="mt-title">XPS Premium Support Specialist</div>
+              <div class="mt-date">Jun 2005 &ndash; Dec 2007</div>
+              <div class="mt-details">
+                <ul>
+                  <li>Quality and performance responsibility for desktop support teams</li>
+                  <li>Owned customer and hygiene control review processes</li>
+                  <li>Developed productivity and efficiency training programs</li>
+                </ul>
               </div>
-              <div class="job-tagline">Premium Support & Team Coordination</div>
             </div>
-            <span class="expand-icon">&#9660;</span>
+
           </div>
-          <div class="job-card-body">
-            <div class="job-card-content">
-              <ul>
-                <li>Quality and performance responsibility for desktop support teams</li>
-                <li>Owned customer and hygiene control review processes</li>
-                <li>Developed and delivered productivity and efficiency training programs</li>
-                <li>Governed new project and process rollouts within the team</li>
-              </ul>
-            </div>
-          </div>
+          <div class="click-hint">Click roles to expand details</div>
         </div>
-      </div>
 
-    </div>
-  </div>
-</section>
-
-<!-- Contact -->
-<section id="contact">
-  <div class="container">
-    <span class="section-label">Connect</span>
-    <h2 class="section-heading">Get in Touch</h2>
-    <div class="contact-grid">
-      <div class="contact-card fade-in">
-        <div class="icon">&#128205;</div>
-        <div class="label">Location</div>
-        <div class="value">Bratislava, Slovakia</div>
-      </div>
-      <div class="contact-card fade-in">
-        <div class="icon">&#128222;</div>
-        <div class="label">Phone</div>
-        <div class="value"><a href="tel:+421948960600">+421 948 960 600</a></div>
-      </div>
-      <div class="contact-card fade-in">
-        <div class="icon">&#9993;</div>
-        <div class="label">Email</div>
-        <div class="value"><a href="mailto:[email]">[email]</a></div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- Scroll to top -->
-<button class="scroll-top" onclick="window.scrollTo({top:0})" aria-label="Scroll to top">&#8593;</button>
+    <!-- SKILLS ROW: 3 overlapping cards -->
+    <div>
+      <span class="card-label">Skills &amp; Qualifications</span>
+      <div class="skills-row">
 
-<footer>
-  <p>&copy; 2025 Frantisek Floch. All rights reserved.</p>
-</footer>
+        <!-- Technical -->
+        <div class="stack-card active" onclick="activateSkillCard(this)">
+          <div class="card-heading">Technical</div>
+          <div class="card-subtitle">Tools & Technologies</div>
+          <ul class="skill-list">
+            <li><span class="check">&#10003;</span> SQL (Advanced)</li>
+            <li><span class="check">&#10003;</span> C# / .NET</li>
+            <li><span class="check">&#10003;</span> Excel &amp; Power BI</li>
+            <li><span class="check">&#10003;</span> MS Office &amp; Visio/Draw.io</li>
+            <li><span class="check">&#10003;</span> IT &amp; Server Infrastructure</li>
+            <li><span class="check">&#10003;</span> Python (Learning)</li>
+          </ul>
+        </div>
+
+        <!-- Analytics -->
+        <div class="stack-card" onclick="activateSkillCard(this)">
+          <div class="card-heading">Analytics</div>
+          <div class="card-subtitle">Data &amp; Modeling</div>
+          <ul class="skill-list">
+            <li><span class="check">&#10003;</span> Predictive Modeling</li>
+            <li><span class="check">&#10003;</span> Strategic Forecasting</li>
+            <li><span class="check">&#10003;</span> Process Automation</li>
+            <li><span class="check">&#10003;</span> Free Cash Flow & Headcount Planning</li>
+            <li><span class="check">&#10003;</span> ML Integration</li>
+            <li><span class="check">&#10003;</span> Data Governance</li>
+          </ul>
+        </div>
+
+        <!-- Leadership -->
+        <div class="stack-card" onclick="activateSkillCard(this)">
+          <div class="card-heading">Leadership</div>
+          <div class="card-subtitle">Management & Communication</div>
+          <ul class="skill-list">
+            <li><span class="check">&#10003;</span> Cross-Functional Collaboration</li>
+            <li><span class="check">&#10003;</span> Stakeholder Communication</li>
+            <li><span class="check">&#10003;</span> Presentations</li>
+            <li><span class="check">&#10003;</span> Technical Mentorship</li>
+            <li><span class="check">&#10003;</span> Virtual Team Management</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- BOTTOM ROW: Languages + Certifications -->
+    <div>
+      <span class="card-label">Languages &amp; Certifications</span>
+      <div class="skills-row">
+
+        <!-- Languages -->
+        <div class="stack-card active" onclick="activateBottomCard(this)" style="width: 45%;">
+          <div class="card-heading">Languages</div>
+          <div class="card-subtitle">Communication</div>
+          <ul class="skill-list">
+            <li><span class="check">&#10003;</span> Slovak (Native)</li>
+            <li><span class="check">&#10003;</span> English (Fluent)</li>
+            <li><span class="check">&#10003;</span> German (Proficient)</li>
+            <li><span class="check">&#10003;</span> Spanish (Learning)</li>
+          </ul>
+        </div>
+
+        <!-- Certifications -->
+        <div class="stack-card" onclick="activateBottomCard(this)" style="width: 45%; left: 55%;">
+          <div class="card-heading">Certifications</div>
+          <div class="card-subtitle">Professional Development</div>
+          <ul class="skill-list">
+            <li><span class="check">&#10003;</span> Lean Six Sigma &mdash; 2&times; Yellow Belt</li>
+            <li><span class="check">&#10003;</span> Lean Six Sigma &mdash; 5&times; Green Belt</li>
+            <li><span class="check">&#10003;</span> Certified Soft Skills Trainer</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+</div>
 
 <script>
-  // Dark mode toggle
-  function toggleTheme() {
-    const html = document.documentElement;
-    const current = html.getAttribute('data-theme');
-    const next = current === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-theme', next);
-    localStorage.setItem('theme', next);
-    document.querySelector('.theme-toggle').textContent = next === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+  // Activate experience cards (Amazon / Dell)
+  function activateCard(card) {
+    const row = card.closest('.exp-row');
+    row.querySelectorAll('.stack-card').forEach(c => c.classList.remove('active'));
+    card.classList.add('active');
   }
 
-  // Load saved theme
-  const saved = localStorage.getItem('theme');
-  if (saved) {
-    document.documentElement.setAttribute('data-theme', saved);
-    if (saved === 'dark') document.querySelector('.theme-toggle').textContent = '\u2600\uFE0F';
+  // Activate skill cards (Technical / Analytics / Leadership)
+  function activateSkillCard(card) {
+    const row = card.closest('.skills-row');
+    row.querySelectorAll('.stack-card').forEach(c => c.classList.remove('active'));
+    card.classList.add('active');
   }
 
-  // Scroll animations
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-  document.querySelectorAll('.timeline-item, .fade-in').forEach(el => observer.observe(el));
-
-  // Scroll to top button
-  window.addEventListener('scroll', () => {
-    const btn = document.querySelector('.scroll-top');
-    if (window.scrollY > 500) {
-      btn.classList.add('visible');
-    } else {
-      btn.classList.remove('visible');
-    }
-  });
-
-  // Active nav link
-  const sections = document.querySelectorAll('section[id]');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(section => {
-      const top = section.offsetTop - 100;
-      if (window.scrollY >= top) current = section.getAttribute('id');
-    });
-    document.querySelectorAll('.nav-links a').forEach(a => {
-      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
-    });
-  });
-
-  // Close mobile nav on link click
-  document.querySelectorAll('.nav-links a').forEach(a => {
-    a.addEventListener('click', () => {
-      document.querySelector('.nav-links').classList.remove('open');
-    });
-  });
+  // Activate bottom row cards (Languages / Certifications)
+  function activateBottomCard(card) {
+    const row = card.closest('.skills-row');
+    row.querySelectorAll('.stack-card').forEach(c => c.classList.remove('active'));
+    card.classList.add('active');
+  }
 </script>
 
 </body>
