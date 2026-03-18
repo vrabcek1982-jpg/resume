@@ -79,6 +79,16 @@
   /* TAB BOOKMARKS (visible edge) */
 
 
+  .tab-strip{
+    position:fixed;
+    right:0;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:250;
+    display:flex;
+    flex-direction:column;
+    gap:.6rem
+  }
   .tab-bookmark{
     writing-mode:vertical-rl;
     text-orientation:mixed;
@@ -111,9 +121,11 @@
     background:#10b981;
     box-shadow:-2px 2px 10px rgba(16,185,129,.25)
   }
-  
+  .tab-bookmark:nth-child(3):hover{
+    box-shadow:-4px 2px 16px rgba(16,185,129,.35)
+  }
 
-  
+ 
 
   /* SKILL CARDS */
   .sk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.85rem}
