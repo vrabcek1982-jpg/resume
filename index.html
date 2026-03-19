@@ -1,677 +1,475 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Frantisek Floch | CV</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-
-  :root{
-    --accent:#3b82f6;--accent-glow:rgba(59,130,246,0.12);
-    --dark:#0f172a;--text:#1e293b;--text2:#64748b;
-    --bg:#f8fafc;--card:#fff;--card-h:#f1f5f9;--border:#e2e8f0;
-    --nav-bg:rgba(255,255,255,0.88);
-    --sh:0 2px 10px rgba(0,0,0,0.06);--sh-lg:0 10px 30px rgba(0,0,0,0.1);
-    --r:14px;--t:0.4s cubic-bezier(.4,0,.2,1);
-  }
-  [data-theme="dark"]{
-    --dark:#f1f5f9;--text:#e2e8f0;--text2:#94a3b8;
-    --bg:#0f172a;--card:#1e293b;--card-h:#334155;--border:#334155;
-    --nav-bg:rgba(15,23,42,0.92);
-    --sh:0 2px 10px rgba(0,0,0,0.3);--sh-lg:0 10px 30px rgba(0,0,0,0.4);
-  }
-
-  html{scroll-behavior:smooth}
-  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;font-size:15px;overflow-x:hidden;transition:background var(--t),color var(--t)}
-
-  /* NAV */
-  .nav{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);transition:all var(--t)}
-  .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:.7rem 1.5rem}
-  .nav-brand{font-weight:800;font-size:1.05rem;color:var(--dark);letter-spacing:-.5px}
-  .nav-links{display:flex;gap:.15rem;align-items:center}
-  
-  .nav-links a,.tab-btn{color:var(--dark);text-decoration:none;padding:.45rem .85rem;border-radius:8px;font-size:.95rem;font-weight:600;transition:all var(--t);cursor:pointer;background:none;border:none;font-family:inherit}
-
-  .nav-links a:hover,.nav-links a.active,.tab-btn:hover,.tab-btn.active{color:var(--accent);background:var(--accent-glow)}
-  
-
-  
-  .theme-toggle{background:none;border:2px solid var(--border);border-radius:8px;padding:.35rem .55rem;cursor:pointer;font-size:.95rem;color:var(--text);transition:all var(--t);margin-left:.4rem}
-  .theme-toggle:hover{border-color:var(--accent);background:var(--accent-glow)}
-  .nav-toggle{display:none;background:none;border:none;font-size:1.3rem;color:var(--text);cursor:pointer}
-
-  /* HERO */
-  .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:6rem 1.5rem 4rem;position:relative;overflow:hidden}
-  .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% -20%,var(--accent-glow),transparent),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(139,92,246,.06),transparent)}
-  .hero-content{position:relative;z-index:1;text-align:center;max-width:700px}
-
-  .hero-photo{width:160px;height:160px;border-radius:50%;overflow:hidden;margin:0 auto 1.5rem;border:4px solid var(--accent);box-shadow:0 0 30px rgba(59,130,246,.2)}
-  .hero-photo img{width:100%;height:100%;object-fit:cover;transition:filter var(--t)}
-  .hero-photo:hover img{filter:brightness(1.1)}
-
-  .hero-badge{display:inline-block;padding:.3rem .9rem;border-radius:50px;background:var(--accent-glow);color:var(--accent);font-size:.78rem;font-weight:600;letter-spacing:.5px;margin-bottom:1rem;border:1px solid rgba(59,130,246,.2)}
-  .hero h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:800;color:var(--dark);line-height:1.15;margin-bottom:.6rem;letter-spacing:-1px}
-  .hero h1 .acc{color:var(--accent)}
-  .hero-sub{font-size:1.05rem;color:var(--text2);max-width:520px;margin:0 auto 1.5rem;line-height:1.7}
-
-  .hero-actions{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem}
-  .btn{display:inline-flex;align-items:center;gap:.35rem;padding:.65rem 1.3rem;border-radius:10px;font-size:.88rem;font-weight:600;text-decoration:none;transition:all var(--t);cursor:pointer;border:none;font-family:inherit}
-  .btn-p{background:var(--accent);color:#fff;box-shadow:0 4px 14px rgba(59,130,246,.3)}
-  .btn-p:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(59,130,246,.4)}
-  .btn-o{background:transparent;color:var(--text);border:2px solid var(--border)}
-  .btn-o:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
-
-  .hero-social{display:flex;gap:.6rem;justify-content:center}
-  .social-link{width:40px;height:40px;border-radius:50%;background:var(--accent-glow);border:1.5px solid rgba(59,130,246,.2);display:flex;align-items:center;justify-content:center;color:var(--accent);text-decoration:none;transition:all var(--t)}
-  .social-link:hover{background:var(--accent);color:#fff;transform:translateY(-2px);box-shadow:0 4px 12px rgba(59,130,246,.35)}
-  .social-link svg{width:18px;height:18px;fill:currentColor}
-
-  /* SLIDE PANELS */
-  .panel-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:300;opacity:0;pointer-events:none;transition:opacity .35s ease}
-  .panel-overlay.show{opacity:1;pointer-events:auto}
-
-  .slide-panel{position:fixed;top:0;right:0;bottom:0;width:min(700px,92vw);z-index:310;background:var(--bg);box-shadow:-8px 0 40px rgba(0,0,0,.15);transform:translateX(100%);transition:transform .45s cubic-bezier(.4,0,.2,1);overflow-y:auto;padding:0}
-  .slide-panel.open{transform:translateX(0)}
-
-  .panel-header{position:sticky;top:0;z-index:5;background:var(--bg);padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;backdrop-filter:blur(10px)}
-  .panel-title{font-size:1.2rem;font-weight:700;color:var(--dark)}
-  .panel-close{background:none;border:2px solid var(--border);border-radius:8px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.1rem;color:var(--text);transition:all var(--t)}
-  .panel-close:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-glow)}
-  .panel-body{padding:1.5rem}
-
-  /* TAB BOOKMARKS (visible edge) */
-
-
-  .tab-strip{
-    position:fixed;
-    right:0;
-    top:50%;
-    transform:translateY(-50%);
-    z-index:250;
-    display:flex;
-    flex-direction:column;
-    gap:.6rem
-  }
-    .tab-bookmark{
-    writing-mode:vertical-rl;
-    text-orientation:mixed;
-    padding:1.6rem 1.25rem;
-    background:var(--accent);
-    color:#fff;
-    font-size:.85rem;
-    font-weight:700;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
-    border-radius:10px 0 0 10px;
-    cursor:pointer;
-    border:none;
-    box-shadow:-2px 2px 10px rgba(59,130,246,.25);
-    transition:all var(--t);
-    font-family:inherit
-  }
-  .tab-bookmark:hover{
-    padding-right:1.5rem;
-    box-shadow:-4px 2px 16px rgba(59,130,246,.35)
-  }
-  .tab-bookmark:nth-child(2){
-    background:#8b5cf6;
-    box-shadow:-2px 2px 10px rgba(139,92,246,.25)
-  }
-  .tab-bookmark:nth-child(2):hover{
-    box-shadow:-4px 2px 16px rgba(139,92,246,.35)
-  }
-  .tab-bookmark:nth-child(3){
-    background:#10b981;
-    box-shadow:-2px 2px 10px rgba(16,185,129,.25)
-  }
-  .tab-bookmark:nth-child(3):hover{
-    box-shadow:-4px 2px 16px rgba(16,185,129,.35)
-  }
-
- 
-
-  /* SKILL CARDS */
-  .sk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.85rem}
-  .sk-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem;box-shadow:var(--sh);transition:all var(--t)}
-  .sk-card:hover{transform:translateY(-3px);box-shadow:var(--sh-lg);border-color:var(--accent)}
-  .sk-card .ic{font-size:1.3rem;margin-bottom:.4rem}
-  .sk-card h3{font-size:.85rem;font-weight:700;color:var(--dark);margin-bottom:.3rem}
-  .sk-card p{font-size:.8rem;color:var(--text2);line-height:1.6}
-
-  /* TIMELINE in panel */
-  .tl{position:relative;padding-left:26px}
-  .tl::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--accent),var(--border))}
-  .tl-item{position:relative;margin-bottom:.8rem}
-  .tl-dot{position:absolute;left:-26px;top:1.1rem;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--accent);z-index:2;transition:all var(--t)}
-  .tl-item:hover .tl-dot{background:var(--accent);transform:scale(1.15)}
-
-  .tl-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);transition:all var(--t)}
-  .tl-card:hover{box-shadow:var(--sh-lg);border-color:var(--accent)}
-  .tl-head{padding:1rem 1.2rem;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:.6rem;user-select:none;transition:background var(--t)}
-  .tl-head:hover{background:var(--card-h)}
-  .tl-role{font-size:.92rem;font-weight:700;color:var(--dark);margin-bottom:.1rem}
-  .tl-info{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;font-size:.78rem}
-  .tl-co{color:var(--accent);font-weight:600}
-  .tl-dt{color:var(--text2)}
-  .tl-tag{font-size:.75rem;color:var(--text2);font-style:italic;margin-top:.1rem}
-  .tl-arr{color:var(--text2);font-size:.85rem;flex-shrink:0;transition:transform var(--t);margin-top:.15rem}
-  .tl-card.open .tl-arr{transform:rotate(180deg)}
-
-  .tl-body{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1)}
-  .tl-card.open .tl-body{max-height:2000px}
-  .tl-cnt{padding:0 1.2rem 1.2rem}
-  .tl-cnt .grp{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin:.8rem 0 .3rem}
-  .tl-cnt ul{list-style:none}
-  .tl-cnt li{position:relative;padding-left:.85rem;margin-bottom:.25rem;font-size:.82rem;line-height:1.6}
-  .tl-cnt li::before{content:'';position:absolute;left:0;top:.55rem;width:4px;height:4px;border-radius:50%;background:var(--accent)}
-  .tl-cnt ul ul{margin:.15rem 0 .15rem .6rem}
-  .tl-cnt ul ul li::before{background:var(--text2);width:3px;height:3px}
-
-  /* CONTACT in panel */
-  .contact-grid{display:grid;grid-template-columns:1fr;gap:.75rem}
-  .contact-item{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem;display:flex;align-items:center;gap:1rem;box-shadow:var(--sh);transition:all var(--t)}
-  .contact-item:hover{box-shadow:var(--sh-lg);border-color:var(--accent);transform:translateX(-4px)}
-  .contact-icon{width:44px;height:44px;border-radius:50%;background:var(--accent-glow);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-  .contact-icon svg{width:20px;height:20px;fill:var(--accent)}
-  .contact-label{font-size:.7rem;color:var(--text2);text-transform:uppercase;letter-spacing:1px;font-weight:600}
-  .contact-value{font-size:.95rem;font-weight:600;color:var(--dark)}
-  .contact-value a{color:var(--dark);text-decoration:none}
-  .contact-value a:hover{color:var(--accent)}
-
-  /* SCROLL TOP */
-  .scroll-top{position:fixed;bottom:1.5rem;right:4.5rem;z-index:90;width:42px;height:42px;border-radius:50%;background:var(--accent);color:#fff;border:none;font-size:1.1rem;cursor:pointer;box-shadow:0 4px 14px rgba(59,130,246,.35);opacity:0;transform:translateY(10px);transition:all var(--t);display:flex;align-items:center;justify-content:center}
-  .scroll-top.visible{opacity:1;transform:translateY(0)}
-  .scroll-top:hover{transform:translateY(-3px)}
-
-  /* RESPONSIVE */
-  @media(max-width:640px){
-    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(14px);flex-direction:column;padding:.5rem;border-bottom:1px solid var(--border)}
-    .nav-links.open{display:flex}
-    .nav-toggle{display:block}
-    .hero h1{font-size:2rem}
-    .tab-strip{top:auto;bottom:1rem;right:.5rem;transform:none}
-    .slide-panel{width:100vw}
-  }
-
-  @media print{
-    .nav,.tab-strip,.scroll-top,.theme-toggle,.hero-actions,.panel-overlay{display:none}
-    .hero{min-height:auto;padding:2rem 1.5rem}
-    .slide-panel{position:relative;transform:none;width:100%;box-shadow:none;page-break-inside:avoid}
-    .tl-body{max-height:none!important}
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frantisek Floch | Resume</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-<!-- NAV -->
-<nav class="nav">
-  <div class="nav-inner">
-    <span class="nav-brand">Frantisek Floch</span>
-    <button class="nav-toggle" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">&#9776;</button>
-    <div class="nav-links">
-      <a href="#about">About</a>
-      <button class="tab-btn" onclick="openPanel('experience')">Experience</button>
-      <button class="tab-btn" onclick="openPanel('skills')">Skills</button>
-      <button class="tab-btn" onclick="openPanel('contact')">Contact</button>
-      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">&#127769;</button>
+    <!-- LANDING: Black screen with 3D resume on table -->
+    <div id="landing" class="landing">
+        <div class="table-surface">
+            <div class="resume-card" id="resumeCard">
+                <div class="resume-card-inner">
+                    <div class="card-header-line"></div>
+                    <h2 class="card-name">FRANTISEK FLOCH</h2>
+                    <p class="card-title">AWS AR Global Data Lead</p>
+                    <div class="card-divider"></div>
+                    <div class="card-preview-lines">
+                        <span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                </div>
+            </div>
+            <!-- Tooltip -->
+            <div class="tooltip" id="tooltipLanding">
+                <span class="tooltip-icon">👆</span> Click to view full resume
+            </div>
+        </div>
     </div>
-  </div>
-</nav>
 
-<!-- HERO -->
-<section class="hero" id="about">
-  <div class="hero-bg"></div>
-  <div class="hero-content">
-    <div class="hero-photo">
-      <img src="photo.jpg" alt="Frantisek Floch" onerror="this.parentElement.style.display='none'">
+    <!-- MAIN RESUME -->
+    <div id="resumeMain" class="resume-main hidden">
+        <!-- Navigation -->
+        <nav class="resume-nav" id="resumeNav">
+            <div class="nav-inner">
+                <span class="nav-name">FF</span>
+                <div class="nav-links">
+                    <a href="#profile" class="nav-link active" data-section="profile">Profile</a>
+                    <a href="#experience" class="nav-link" data-section="experience">Experience</a>
+                    <a href="#skills" class="nav-link" data-section="skills">Skills</a>
+                    <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Page indicator & arrows -->
+        <div class="page-controls" id="pageControls">
+            <button class="page-arrow left" id="prevPage" aria-label="Previous page">&#8592;</button>
+            <span class="page-indicator" id="pageIndicator">1 / 4</span>
+            <button class="page-arrow right" id="nextPage" aria-label="Next page">&#8594;</button>
+        </div>
+
+        <!-- PAGE 1: Hero / Profile -->
+        <section class="page page-active" id="profile" data-page="1">
+            <div class="hero">
+                <div class="hero-bg"></div>
+                <div class="hero-content reveal-section" data-tooltip="Welcome to my resume">
+                    <div class="hero-header-line"></div>
+                    <div class="avatar-placeholder">
+                        <span class="avatar-initials">FF</span>
+                    </div>
+                    <h1 class="hero-name">FRANTISEK FLOCH</h1>
+                    <p class="hero-title">AWS AR Global Data Lead</p>
+                    <div class="hero-divider"></div>
+                    <p class="hero-summary">
+                        Data Research &amp; Analytics Leader driving optimization, predictive modeling, 
+                        and strategic forecasting solutions across global finance operations. Combining 
+                        systematic thinking with deep data expertise to transform complex challenges 
+                        into actionable insights and scalable solutions.
+                    </p>
+                </div>
+                <div class="hero-details reveal-section" data-tooltip="Scroll down for more">
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <span class="detail-icon">📍</span>
+                            <span>Bratislava, Slovakia</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-icon">🏢</span>
+                            <span>Amazon Web Services</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-icon">📅</span>
+                            <span>Since Jan 2021</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-icon">🎓</span>
+                            <span>Lean Six Sigma (7 Belts)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 2: Experience -->
+        <section class="page" id="experience" data-page="2">
+            <div class="section-container">
+                <h2 class="section-title reveal-section" data-tooltip="Click roles to expand details">
+                    <span class="title-text">EXPERIENCE</span>
+                    <span class="title-line"></span>
+                </h2>
+                <div class="timeline">
+                    <!-- Role 1 -->
+                    <div class="timeline-item reveal-section" data-tooltip="Click to expand">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="role-header" onclick="toggleRole(this)">
+                                <div class="role-dates">Jan 2021 - Present</div>
+                                <h3 class="role-title">AWS AR Global Data Lead</h3>
+                                <p class="role-company">Amazon</p>
+                                <span class="expand-icon">+</span>
+                            </div>
+                            <div class="role-details">
+                                <div class="role-category">
+                                    <h4>AI/ML Development & Leadership</h4>
+                                    <ul>
+                                        <li>Lead AI development teams to build predictive and analytical models used by FinOps, FinAuto, Billing, Customer Service, Finance and Sales</li>
+                                        <li>Establish continuous improvement cycles by evaluating model outputs against real-world results and training models through feedback loops</li>
+                                        <li>Architect unified recommendation engine consolidating all AI efforts into a single, cohesive output</li>
+                                    </ul>
+                                </div>
+                                <div class="role-category">
+                                    <h4>Data Architecture & Systems</h4>
+                                    <ul>
+                                        <li>Architect and implement the Advanced Tiering & Learning Analysis System (Atlas), transforming AR operations from channel-based to ML-driven workflows</li>
+                                        <li>Design business logic and data parameters that create and govern ML models for customer scorecards and risk-based cohorts</li>
+                                        <li>Drive end-to-end transformation of manual processes through advanced analytics and intelligent automation</li>
+                                    </ul>
+                                </div>
+                                <div class="role-category">
+                                    <h4>Forecasting & Analytics</h4>
+                                    <ul>
+                                        <li>Develop Revenue and Receivables forecast models including free cash flow analysis, headcount planning, and project ROI</li>
+                                        <li>Lead data integrity initiatives, process automation, and cash reconciliation across global Finance operations</li>
+                                    </ul>
+                                </div>
+                                <div class="role-category">
+                                    <h4>Data Governance & Standards</h4>
+                                    <ul>
+                                        <li>Establish guardrails for long-term data integrity through governance standards and documentation</li>
+                                        <li>Build strategic partnerships across Receivables, Accounting, Finance, Sales, and Customer Support</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Role 2 -->
+                    <div class="timeline-item reveal-section">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="role-header" onclick="toggleRole(this)">
+                                <div class="role-dates">Feb 2019 - Jan 2021</div>
+                                <h3 class="role-title">AWS Finance Program Manager</h3>
+                                <p class="role-company">Amazon</p>
+                                <span class="expand-icon">+</span>
+                            </div>
+                            <div class="role-details">
+                                <div class="role-category">
+                                    <h4>Program Leadership & Implementation</h4>
+                                    <ul>
+                                        <li>Delivered critical support for Global Late Fee program implementation across regions</li>
+                                        <li>Redesigned global AWS invoice count logic as a work driver for variable cost per invoice</li>
+                                        <li>Identify and execute optimization opportunities through situational analysis</li>
+                                    </ul>
+                                </div>
+                                <div class="role-category">
+                                    <h4>Risk Management & Financial Impact</h4>
+                                    <ul>
+                                        <li>Drive proactive Bad Debt and Fraud identification to prevent P&L impact</li>
+                                        <li>Identify VAT reclaim potential for Bad Debt adjustments on suspended accounts</li>
+                                        <li>Develop scalable top accounts analysis to train AI models on decision-making patterns</li>
+                                    </ul>
+                                </div>
+                                <div class="role-category">
+                                    <h4>Cross-Functional Partnership</h4>
+                                    <ul>
+                                        <li>Expand Sales Engagement programs toward Free Cash Flow improvement</li>
+                                        <li>Serve as Consultant for Virtual Analytics Team across regional Data Analysts</li>
+                                        <li>Deliver cross-business unit SQL mentorship programs and technical training workshops</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 3: More Experience -->
+        <section class="page" id="experience2" data-page="3">
+            <div class="section-container">
+                <h2 class="section-title reveal-section">
+                    <span class="title-text">EXPERIENCE (continued)</span>
+                    <span class="title-line"></span>
+                </h2>
+                <div class="timeline">
+                    <!-- Role 3 -->
+                    <div class="timeline-item reveal-section">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="role-header" onclick="toggleRole(this)">
+                                <div class="role-dates">Jan 2017 - Feb 2019</div>
+                                <h3 class="role-title">Global Process Optimization Advisor</h3>
+                                <p class="role-company">DELL Technologies</p>
+                                <span class="expand-icon">+</span>
+                            </div>
+                            <div class="role-details">
+                                <ul>
+                                    <li>Led global process innovation initiatives and sustained governance frameworks</li>
+                                    <li>Driving optimization of global reporting structures and delivery models</li>
+                                    <li>Established global reporting quality governance standards</li>
+                                    <li>Strengthened cross-departmental KPI connections creating unified performance visibility</li>
+                                    <li>Conducted project reviews assessing global impact and scalability</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Role 4 -->
+                    <div class="timeline-item reveal-section">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="role-header" onclick="toggleRole(this)">
+                                <div class="role-dates">May 2014 - Jan 2017</div>
+                                <h3 class="role-title">Listening Post Site Operations Manager</h3>
+                                <p class="role-company">DELL Technologies — Global Operation Excellence</p>
+                                <span class="expand-icon">+</span>
+                            </div>
+                            <div class="role-details">
+                                <ul>
+                                    <li>Managed Global GLP pillars with KPI interlock across internal and OSP sites</li>
+                                    <li>Led global innovation project implementation and governance</li>
+                                    <li>Developed global soft skill innovation programs enhancing team capabilities</li>
+                                    <li>Drove customer journey quality review and improvement initiatives</li>
+                                    <li>Delivered one-screen end-to-end KPI performance dashboards</li>
+                                    <li>Led system renewal program development using C# and .NET frameworks</li>
+                                    <li>Database developer and administrator across Oracle, MSSQL, and MySQL</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Role 5 -->
+                    <div class="timeline-item reveal-section">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="role-header" onclick="toggleRole(this)">
+                                <div class="role-dates">Nov 2012 - May 2014</div>
+                                <h3 class="role-title">CSMB Revenue Lead for Outsourcing Partners</h3>
+                                <p class="role-company">DELL Technologies</p>
+                                <span class="expand-icon">+</span>
+                            </div>
+                            <div class="role-details">
+                                <ul>
+                                    <li>Primary revenue and quality contact for outsourced service partners across EMEA</li>
+                                    <li>Led headcount and site staffing planning aligned with business demand</li>
+                                    <li>Transformation and transition consultant for EMEA operations</li>
+                                    <li>Co-designed System Renewal Global Project architecture and requirements</li>
+                                    <li>Led EMEA Point of Need Revenue Quality Control Governance</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Role 6 -->
+                    <div class="timeline-item reveal-section">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="role-header" onclick="toggleRole(this)">
+                                <div class="role-dates">Dec 2011 - Nov 2012</div>
+                                <h3 class="role-title">CER PON Revenue Analyst</h3>
+                                <p class="role-company">DELL Technologies</p>
+                                <span class="expand-icon">+</span>
+                            </div>
+                            <div class="role-details">
+                                <ul>
+                                    <li>Drove EMEA services strategy development and daily governance</li>
+                                    <li>Revenue program management consultant from concept to execution</li>
+                                    <li>Developed services revenue roadmap with cost-benefit analysis</li>
+                                    <li>Managed services OWR pricing governance and review processes</li>
+                                    <li>Implemented ORL global compliance model across EMEA and OSPs</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Role 7 -->
+                    <div class="timeline-item reveal-section">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="role-header" onclick="toggleRole(this)">
+                                <div class="role-dates">Nov 2009 - Jan 2012</div>
+                                <h3 class="role-title">Revenue Learning Coordinator</h3>
+                                <p class="role-company">DELL Technologies</p>
+                                <span class="expand-icon">+</span>
+                            </div>
+                            <div class="role-details">
+                                <ul>
+                                    <li>Coordinated EMEA trainers and coaches across revenue and new hire projects</li>
+                                    <li>EMEA subject matter expert for revenue compliance and processes</li>
+                                    <li>Developed effective information delivery training programs for EMEA</li>
+                                    <li>New processes and projects point of contact for EMEA PMO</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Role 8 -->
+                    <div class="timeline-item reveal-section">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="role-header" onclick="toggleRole(this)">
+                                <div class="role-dates">Dec 2007 - Nov 2009</div>
+                                <h3 class="role-title">Services Soft Skills Coach</h3>
+                                <p class="role-company">DELL Technologies</p>
+                                <span class="expand-icon">+</span>
+                            </div>
+                            <div class="role-details">
+                                <ul>
+                                    <li>Quality and performance responsibility for desktop support teams</li>
+                                    <li>Developed and delivered productivity and efficiency training programs</li>
+                                    <li>Developed and implemented process improvement pilots</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Role 9 -->
+                    <div class="timeline-item reveal-section">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="role-header" onclick="toggleRole(this)">
+                                <div class="role-dates">Jun 2005 - Dec 2007</div>
+                                <h3 class="role-title">XPS Premium Support Specialist</h3>
+                                <p class="role-company">DELL Technologies</p>
+                                <span class="expand-icon">+</span>
+                            </div>
+                            <div class="role-details">
+                                <ul>
+                                    <li>Premium technical support and team coordination</li>
+                                    <li>Call monitoring for optimization opportunities</li>
+                                    <li>Process improvement pilots and project rollouts</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 4: Skills & Contact -->
+        <section class="page" id="skills" data-page="4">
+            <div class="section-container two-column">
+                <!-- Left Column -->
+                <div class="col-left">
+                    <div class="reveal-section" data-tooltip="My contact info">
+                        <h2 class="section-title">
+                            <span class="title-text">CONTACT</span>
+                            <span class="title-line"></span>
+                        </h2>
+                        <div class="contact-list" id="contact">
+                            <div class="contact-item">
+                                <span class="contact-icon">📍</span>
+                                <span>Bratislava, Slovakia</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">📧</span>
+                                <a href="mailto:[email]">[email]</a>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">📱</span>
+                                <span>[phone_number]</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reveal-section">
+                        <h2 class="section-title">
+                            <span class="title-text">LANGUAGES</span>
+                            <span class="title-line"></span>
+                        </h2>
+                        <div class="lang-list">
+                            <div class="lang-item">
+                                <span class="lang-name">Slovak</span>
+                                <div class="lang-bar"><div class="lang-fill" style="width:100%"></div></div>
+                                <span class="lang-level">Native</span>
+                            </div>
+                            <div class="lang-item">
+                                <span class="lang-name">English</span>
+                                <div class="lang-bar"><div class="lang-fill" style="width:95%"></div></div>
+                                <span class="lang-level">Fluent</span>
+                            </div>
+                            <div class="lang-item">
+                                <span class="lang-name">German</span>
+                                <div class="lang-bar"><div class="lang-fill" style="width:70%"></div></div>
+                                <span class="lang-level">Proficient</span>
+                            </div>
+                            <div class="lang-item">
+                                <span class="lang-name">Spanish</span>
+                                <div class="lang-bar"><div class="lang-fill" style="width:30%"></div></div>
+                                <span class="lang-level">Learning</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reveal-section">
+                        <h2 class="section-title">
+                            <span class="title-text">CERTIFICATIONS</span>
+                            <span class="title-line"></span>
+                        </h2>
+                        <div class="cert-list">
+                            <div class="cert-item">
+                                <span class="cert-badge">🟡</span>
+                                <span>Lean Six Sigma — 2x Yellow Belt</span>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-badge">🟢</span>
+                                <span>Lean Six Sigma — 5x Green Belt</span>
+                            </div>
+                            <div class="cert-item">
+                                <span class="cert-badge">🎓</span>
+                                <span>Certified Soft Skills Trainer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="col-right">
+                    <div class="reveal-section">
+                        <h2 class="section-title">
+                            <span class="title-text">SKILLS</span>
+                            <span class="title-line"></span>
+                        </h2>
+                        <div class="skills-group">
+                            <h4 class="skills-category">Technical</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">SQL (Advanced)</span>
+                                <span class="skill-tag">C#</span>
+                                <span class="skill-tag">.NET</span>
+                                <span class="skill-tag">Excel</span>
+                                <span class="skill-tag">Power BI</span>
+                                <span class="skill-tag">MS Office</span>
+                                <span class="skill-tag">Visio / Draw.io</span>
+                                <span class="skill-tag">IT Infrastructure</span>
+                                <span class="skill-tag">Python (Learning)</span>
+                            </div>
+                        </div>
+                        <div class="skills-group">
+                            <h4 class="skills-category">Analytics</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Predictive Modeling</span>
+                                <span class="skill-tag">Strategic Forecasting</span>
+                                <span class="skill-tag">Process Automation</span>
+                                <span class="skill-tag">Free Cash Flow Planning</span>
+                                <span class="skill-tag">ML Integration</span>
+                                <span class="skill-tag">Data Governance</span>
+                            </div>
+                        </div>
+                        <div class="skills-group">
+                            <h4 class="skills-category">Leadership</h4>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Cross-Functional Collaboration</span>
+                                <span class="skill-tag">Stakeholder Communication</span>
+                                <span class="skill-tag">Presentations</span>
+                                <span class="skill-tag">Technical Mentorship</span>
+                                <span class="skill-tag">Virtual Team Management</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-    <div class="hero-badge">Data Research &amp; Analytics Leader</div>
-    <h1>Frantisek <span class="acc">Floch</span></h1>
-    <p class="hero-sub">Driving optimization, predictive modeling, and strategic forecasting solutions across global finance operations. Bridging technical capabilities with business needs to deliver measurable impact.</p>
-    <div class="hero-actions">
-      <button class="btn btn-p" onclick="openPanel('experience')">View Experience &#8594;</button>
-      <button class="btn btn-o" onclick="openPanel('contact')">Get in Touch &#8594;</button>
-    </div>
-    <div class="hero-social">
-      <a href="https://www.linkedin.com/in/frantisek-floch-6927818/" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
-        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      </a>
-      <a href="mailto:FrantisekFloch82@gmail.com" class="social-link" aria-label="Email">
-        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-      </a>
-      <a href="tel:+421948960600" class="social-link" aria-label="Phone">
-        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-      </a>
-    </div>
-  </div>
-</section>
 
-<!-- BOOKMARK TABS on right edge -->
-<div class="tab-strip">
-  <button class="tab-bookmark" onclick="openPanel('experience')">Experience</button>
-  <button class="tab-bookmark" onclick="openPanel('skills')">Skills</button>
-  <button class="tab-bookmark" onclick="openPanel('contact')">Contact</button>
-</div>
-
-<!-- OVERLAY -->
-<div class="panel-overlay" onclick="closePanel()"></div>
-
-<!-- EXPERIENCE PANEL -->
-<div class="slide-panel" id="panel-experience">
-  <div class="panel-header">
-    <span class="panel-title">Professional Experience</span>
-    <button class="panel-close" onclick="closePanel()">&#10005;</button>
-  </div>
-  <div class="panel-body">
-    <div class="tl">
-
-      <!-- 1 -->
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-card" onclick="this.classList.toggle('open')">
-          <div class="tl-head">
-            <div>
-              <div class="tl-role">AWS AR Global Data Lead</div>
-              <div class="tl-info"><span class="tl-co">Amazon</span><span class="tl-dt">Jan 2021 &ndash; Present</span></div>
-              <div class="tl-tag">Data Architecture &amp; Advanced Analytics</div>
-            </div>
-            <span class="tl-arr">&#9660;</span>
-          </div>
-          <div class="tl-body"><div class="tl-cnt">
-            <div class="grp">AI/ML Development &amp; Leadership</div>
-            <ul>
-              <li>Lead AI development teams building predictive models for FinOps, Billing, Customer Service, Finance and Sales</li>
-              <li>Establish continuous improvement cycles evaluating model outputs through feedback loops</li>
-              <li>Develop SOPs for AI-readable environments enabling seamless human-ML integration</li>
-              <li>Architect unified recommendation engine:
-                <ul>
-                  <li>Customer email communication history</li>
-                  <li>Behavior trends over time</li>
-                  <li>Free cash flow risk assessment</li>
-                  <li>Human vs. automated handling recommendation</li>
-                  <li>Next-step actions (Atlas model)</li>
-                </ul>
-              </li>
-            </ul>
-            <div class="grp">Data Architecture & Systems</div>
-            <ul>
-              <li>Architect the Advanced Tiering &amp; Learning Analysis System, transforming AR to ML-driven workflows</li>
-              <li>Design business logic governing ML models for customer scorecards and risk-based cohorts</li>
-              <li>Drive end-to-end transformation through analytics, predictive modeling, and automation</li>
-            </ul>
-            <div class="grp">Forecasting & Analytics</div>
-            <ul>
-              <li>Develop Revenue and Receivables forecast models: free cash flow, headcount, ROI, invoice headwinds</li>
-              <li>Lead data integrity, process automation, and cash reconciliation across global Finance</li>
-            </ul>
-            <div class="grp">Data Governance</div>
-            <ul>
-              <li>Establish guardrails for long-term data integrity within governance frameworks</li>
-              <li>Build strategic partnerships across Receivables, Accounting, Finance, Sales, and Billing</li>
-            </ul>
-          </div></div>
-        </div>
-      </div>
-
-      <!-- 2 -->
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-card" onclick="this.classList.toggle('open')">
-          <div class="tl-head">
-            <div>
-              <div class="tl-role">AWS Finance Program Manager</div>
-              <div class="tl-info"><span class="tl-co">Amazon</span><span class="tl-dt">Feb 2019 &ndash; Jan 2021</span></div>
-              <div class="tl-tag">Cross-Functional Programs & Operational Excellence</div>
-            </div>
-            <span class="tl-arr">&#9660;</span>
-          </div>
-          <div class="tl-body"><div class="tl-cnt">
-            <div class="grp">Program Leadership</div>
-            <ul>
-              <li>Delivered Global Late Fee program aligning technical, legal, accounting, and finance stakeholders</li>
-              <li>Redesigned global AWS invoice count logic for long-term operational planning</li>
-            </ul>
-            <div class="grp">Risk Management</div>
-            <ul>
-              <li>Drive proactive Bad Debt and Fraud identification to prevent P&amp;L impact</li>
-              <li>Identify VAT reclaim potential for suspended accounts across US, UK and Germany</li>
-              <li>Develop scalable top accounts analysis to train AI models on decision-making patterns</li>
-            </ul>
-            <div class="grp">Stakeholder Management</div>
-            <ul>
-              <li>Expand Sales Engagement programs toward Free Cash Flow improvement</li>
-              <li>Deliver cross-business unit SQL mentorship and technical training workshops</li>
-            </ul>
-          </div></div>
-        </div>
-      </div>
-
-      <!-- 3 -->
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-card" onclick="this.classList.toggle('open')">
-          <div class="tl-head">
-            <div>
-              <div class="tl-role">Global Process Optimization Advisor</div>
-              <div class="tl-info"><span class="tl-co">DELL Technologies</span><span class="tl-dt">Jan 2017 &ndash; Feb 2019</span></div>
-              <div class="tl-tag">Global Process Innovation &amp; Governance</div>
-            </div>
-            <span class="tl-arr">&#9660;</span>
-          </div>
-          <div class="tl-body"><div class="tl-cnt">
-            <ul>
-              <li>Led global process innovation and sustained governance across multiple business units</li>
-              <li>Drove optimization of global reporting structures and delivery models</li>
-              <li>Established global reporting quality governance standards</li>
-              <li>Strengthened cross-departmental KPI connections for unified performance visibility</li>
-            </ul>
-          </div></div>
-        </div>
-      </div>
-
-      <!-- 4 -->
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-card" onclick="this.classList.toggle('open')">
-          <div class="tl-head">
-            <div>
-              <div class="tl-role">Listening Post Site Operations Manager</div>
-              <div class="tl-info"><span class="tl-co">DELL Technologies</span><span class="tl-dt">May 2014 &ndash; Jan 2017</span></div>
-              <div class="tl-tag">Global Innovation, CX &amp; Operational Excellence</div>
-            </div>
-            <span class="tl-arr">&#9660;</span>
-          </div>
-          <div class="tl-body"><div class="tl-cnt">
-            <ul>
-              <li>Managed Global GLP pillars with KPI interlock across internal and OSP sites</li>
-              <li>Led global innovation project implementation and governance</li>
-              <li>Delivered one-screen end-to-end KPI performance dashboards</li>
-              <li>Developed tools using C# and .NET; DB admin across Oracle, MSSQL, MySQL</li>
-              <li>Spearheaded NetworX Bratislava innovation and retail globalization</li>
-            </ul>
-          </div></div>
-        </div>
-      </div>
-
-      <!-- 5 -->
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-card" onclick="this.classList.toggle('open')">
-          <div class="tl-head">
-            <div>
-              <div class="tl-role">CSMB Revenue Lead for Outsourcing Partners</div>
-              <div class="tl-info"><span class="tl-co">DELL Technologies</span><span class="tl-dt">Nov 2012 &ndash; May 2014</span></div>
-              <div class="tl-tag">Revenue Operations, Partner Management & Transformation</div>
-            </div>
-            <span class="tl-arr">&#9660;</span>
-          </div>
-          <div class="tl-body"><div class="tl-cnt">
-            <ul>
-              <li>Primary revenue and quality contact for OSPs across EMEA</li>
-              <li>Led headcount and site staffing planning aligned with business demand</li>
-              <li>Co-designed System Renewal Global Project</li>
-              <li>Led EMEA Point of Need Revenue Quality Control Governance</li>
-              <li>Designed EMEA Quality pillars and governance model across partner network</li>
-            </ul>
-          </div></div>
-        </div>
-      </div>
-
-      <!-- 6 -->
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-card" onclick="this.classList.toggle('open')">
-          <div class="tl-head">
-            <div>
-              <div class="tl-role">CER PON Revenue Analyst</div>
-              <div class="tl-info"><span class="tl-co">DELL Technologies</span><span class="tl-dt">Dec 2011 &ndash; Nov 2012</span></div>
-              <div class="tl-tag">Revenue Strategy, Program Management & Governance</div>
-            </div>
-            <span class="tl-arr">&#9660;</span>
-          </div>
-          <div class="tl-body"><div class="tl-cnt">
-            <ul>
-              <li>Drove EMEA services strategy development and daily governance</li>
-              <li>Revenue program management consultant guiding initiatives from concept to execution</li>
-              <li>Developed services revenue roadmap with cost-benefit analysis</li>
-              <li>Implemented ORL global compliance model across EMEA</li>
-              <li>Managed services OWR pricing governance and review processes</li>
-            </ul>
-          </div></div>
-        </div>
-      </div>
-
-      <!-- 7 -->
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-card" onclick="this.classList.toggle('open')">
-          <div class="tl-head">
-            <div>
-              <div class="tl-role">Revenue Learning Coordinator</div>
-              <div class="tl-info"><span class="tl-co">DELL Technologies</span><span class="tl-dt">Nov 2009 &ndash; Jan 2012</span></div>
-              <div class="tl-tag">Training Coordination, Revenue Compliance & Process Development</div>
-            </div>
-            <span class="tl-arr">&#9660;</span>
-          </div>
-          <div class="tl-body"><div class="tl-cnt">
-            <ul>
-              <li>Coordinated EMEA trainers and coaches across revenue and new hire projects</li>
-              <li>EMEA subject matter expert for revenue compliance and processes</li>
-              <li>Developed effective information delivery training programs for EMEA</li>
-              <li>Revenue single point of contact for outsourcing service partners</li>
-              <li>Implemented SMB revenue business processes for consumer services</li>
-            </ul>
-          </div></div>
-        </div>
-      </div>
-
-      <!-- 8 -->
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-card" onclick="this.classList.toggle('open')">
-          <div class="tl-head">
-            <div>
-              <div class="tl-role">Services Soft Skills Coach</div>
-              <div class="tl-info"><span class="tl-co">DELL Technologies</span><span class="tl-dt">Dec 2007 &ndash; Nov 2009</span></div>
-              <div class="tl-tag">Coaching, Quality & Process Improvement</div>
-            </div>
-            <span class="tl-arr">&#9660;</span>
-          </div>
-          <div class="tl-body"><div class="tl-cnt">
-            <ul>
-              <li>Quality and performance responsibility for desktop support teams</li>
-              <li>Coached agents through call monitoring and developed productivity training</li>
-              <li>Owned customer and hygiene control review processes</li>
-              <li>Developed and implemented process improvement pilots</li>
-            </ul>
-          </div></div>
-        </div>
-      </div>
-
-      <!-- 9 -->
-      <div class="tl-item">
-        <div class="tl-dot"></div>
-        <div class="tl-card" onclick="this.classList.toggle('open')">
-          <div class="tl-head">
-            <div>
-              <div class="tl-role">XPS Premium Support Specialist</div>
-              <div class="tl-info"><span class="tl-co">DELL Technologies</span><span class="tl-dt">Jun 2005 &ndash; Dec 2007</span></div>
-              <div class="tl-tag">Premium Support & Team Coordination</div>
-            </div>
-            <span class="tl-arr">&#9660;</span>
-          </div>
-          <div class="tl-body"><div class="tl-cnt">
-            <ul>
-              <li>Quality and performance responsibility for desktop support teams</li>
-              <li>Owned customer and hygiene control review processes</li>
-              <li>Developed productivity and efficiency training programs</li>
-              <li>Governed new project and process rollouts within the team</li>
-            </ul>
-          </div></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- SKILLS PANEL -->
-<div class="slide-panel" id="panel-skills">
-  <div class="panel-header">
-    <span class="panel-title">Skills &amp; Qualifications</span>
-    <button class="panel-close" onclick="closePanel()">&#10005;</button>
-  </div>
-  <div class="panel-body">
-    <div class="sk-grid">
-      <div class="sk-card">
-        <div class="ic">&#128187;</div>
-        <h3>Technical</h3>
-        <p>SQL (Advanced) &middot; C# &middot; .NET &middot; Excel &middot; Power BI &middot; MS Office &middot; Visio/Draw.io &middot; IT &amp; Server Infrastructure &middot; Python</p>
-      </div>
-      <div class="sk-card">
-        <div class="ic">&#128202;</div>
-        <h3>Analytics</h3>
-        <p>Predictive Modeling &middot; Strategic Forecasting &middot; Process Automation &middot; Free Cash Flow &amp; Headcount Planning &middot; ML Integration &middot; Data Governance</p>
-      </div>
-      <div class="sk-card">
-        <div class="ic">&#129309;</div>
-        <h3>Leadership</h3>
-        <p>Cross-Functional Collaboration &middot; Stakeholder Communication &middot; Presentations &middot; Technical Mentorship &middot; Virtual Team Management</p>
-      </div>
-      <div class="sk-card">
-        <div class="ic">&#127758;</div>
-        <h3>Languages</h3>
-        <p>Slovak (Native) &middot; English (Fluent) &middot; German (Proficient) &middot; Spanish (Learning)</p>
-      </div>
-      <div class="sk-card">
-        <div class="ic">&#127941;</div>
-        <h3>Certifications</h3>
-        <p>Lean Six Sigma &mdash; 2&times; Yellow Belt, 5&times; Green Belt &middot; Certified Soft Skills Trainer</p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- CONTACT PANEL -->
-<div class="slide-panel" id="panel-contact">
-  <div class="panel-header">
-    <span class="panel-title">Get in Touch</span>
-    <button class="panel-close" onclick="closePanel()">&#10005;</button>
-  </div>
-  <div class="panel-body">
-    <div class="contact-grid">
-
-      <div class="contact-item">
-        <div class="contact-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg>
-        </div>
-        <div>
-          <div class="contact-label">Location</div>
-          <div class="contact-value">Bratislava, Slovakia</div>
-        </div>
-      </div>
-
-      <div class="contact-item">
-        <div class="contact-icon">
-          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-        </div>
-        <div>
-          <div class="contact-label">Email</div>
-          <div class="contact-value"><a href="mailto:FrantisekFloch82@gmail.com">FrantisekFloch82@gmail.com</a></div>
-        </div>
-      </div>
-
-      <div class="contact-item">
-        <div class="contact-icon">
-          <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-        </div>
-        <div>
-          <div class="contact-label">Phone</div>
-          <div class="contact-value"><a href="tel:+421948960600">+421 948 960 600</a></div>
-        </div>
-      </div>
-
-      <div class="contact-item">
-        <div class="contact-icon">
-          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        </div>
-        <div>
-          <div class="contact-label">LinkedIn</div>
-          <div class="contact-value"><a href="https://www.linkedin.com/in/frantisek-floch-6927818/" target="_blank" rel="noopener">frantisek-floch-6927818</a></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- SCROLL TOP -->
-<button class="scroll-top" onclick="window.scrollTo({top:0})" aria-label="Scroll to top">&#8593;</button>
-
-<script>
-  // Panel management
-  let currentPanel = null;
-
-  function openPanel(name) {
-    closePanel();
-    const panel = document.getElementById('panel-' + name);
-    const overlay = document.querySelector('.panel-overlay');
-    if (panel) {
-      panel.classList.add('open');
-      overlay.classList.add('show');
-      currentPanel = panel;
-      document.body.style.overflow = 'hidden';
-    }
-    // Close mobile nav
-    document.querySelector('.nav-links').classList.remove('open');
-  }
-
-  function closePanel() {
-    if (currentPanel) {
-      currentPanel.classList.remove('open');
-      currentPanel = null;
-    }
-    document.querySelector('.panel-overlay').classList.remove('show');
-    document.body.style.overflow = '';
-  }
-
-  // Close on Escape
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closePanel();
-  });
-
-  // Theme toggle
-  function toggleTheme() {
-    const html = document.documentElement;
-    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-theme', next);
-    localStorage.setItem('theme', next);
-    document.querySelector('.theme-toggle').textContent = next === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
-  }
-  const saved = localStorage.getItem('theme');
-  if (saved) {
-    document.documentElement.setAttribute('data-theme', saved);
-    if (saved === 'dark') document.querySelector('.theme-toggle').textContent = '\u2600\uFE0F';
-  }
-
-  // Scroll to top
-  window.addEventListener('scroll', () => {
-    document.querySelector('.scroll-top').classList.toggle('visible', window.scrollY > 400);
-  });
-</script>
-
+    <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
