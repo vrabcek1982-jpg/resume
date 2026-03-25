@@ -300,6 +300,37 @@ body {
     <button class="chat-toggle" id="chatToggle" onclick="toggleChat()" aria-label="Open chat" style="display:none;"><div class="chat-pulse"></div><svg viewBox="0 0 24 24" width="24" height="24" fill="#fff"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg></button>
     <div class="chat-window" id="chatWindow"><div class="chat-header"><div class="chat-header-title">Ask Me Anything</div><div class="chat-header-sub">Learn more about Frantisek's career</div></div><div class="chat-body" id="chatBody"></div><div class="chat-quick" id="chatQuick"></div></div>
 
+    <!-- GAME BUTTON -->
+    <div class="game-trigger-wrap" id="gameTriggerWrap" style="display:none;">
+        <button class="game-trigger" onclick="openGame()"><span class="gt-emoji">🎮</span>Bored of reading? Smash some robots!</button>
+    </div>
+
+    <!-- GAME OVERLAY -->
+    <div class="game-overlay" id="gameOverlay">
+        <div class="game-header">
+            <div class="game-title">🤖 TERMINATOR SMASH</div>
+            <div class="game-stats"><div class="game-stat"><div class="game-stat-val" id="scoreVal">0</div><div class="game-stat-lbl">Score</div></div><div class="game-stat"><div class="game-stat-val" id="comboVal">0</div><div class="game-stat-lbl">Combo</div></div><div class="game-stat"><div class="game-stat-val" id="missVal">0</div><div class="game-stat-lbl">Missed</div></div></div>
+            <button class="game-close" onclick="closeGame()">EXIT GAME</button>
+        </div>
+        <div class="timer-bar-wrap"><div class="timer-bar" id="timerBar"></div></div>
+        <div class="game-arena" id="gameArena">
+            <div class="game-start-screen" id="startScreen">
+                <div style="font-size:64px;">🤖🔨</div>
+                <div class="game-start-title">Terminator Smash</div>
+                <div class="game-start-sub">Little terminators are invading the resume! Use your hammer to smash them before they escape. You have 30 seconds. Don't let more than 5 escape!</div>
+                <button class="game-start-btn" onclick="startGame()">START SMASHING</button>
+            </div>
+            <div class="game-over-screen" id="gameOver">
+                <div style="font-size:48px;" id="gameOverEmoji">🏆</div>
+                <div class="game-over-title" id="gameOverTitle">Nice Work!</div>
+                <div class="game-over-score" id="gameOverScore">0</div>
+                <div class="game-over-msg" id="gameOverMsg">terminators smashed</div>
+                <button class="game-start-btn" onclick="startGame()">PLAY AGAIN</button>
+            </div>
+        </div>
+    </div>
+    <div class="combo-display" id="comboDisplay"></div>
+
     <!-- EXPLAINER MODAL -->
     <div class="modal-overlay" id="explainerModal"><div class="modal-box"><canvas id="matrixCanvas"></canvas><div class="scanlines"></div><button class="modal-close" onclick="closeExplainer()" aria-label="Close">&times;</button><div class="scene"><div class="modal-role-title" id="modalRoleTitle"></div><div class="topic-img-wrap" id="topicImgWrap"><img id="topicImg" src="" alt="" class="topic-img"></div><div class="narration" id="narration"></div></div><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><div class="modal-controls"><button class="ctrl-btn" id="soundBtn" onclick="toggleSound()">🔊 SOUND ON</button><button class="ctrl-btn" id="pauseBtn" onclick="togglePause()">PAUSE</button><button class="ctrl-btn" onclick="closeExplainer()">SKIP</button></div></div></div>
 
@@ -540,6 +571,49 @@ body {
 .ctrl-btn { background:none; border:1px solid var(--border); color:var(--text-muted); padding:5px 14px; border-radius:20px; cursor:pointer; font-family:'Montserrat',sans-serif; font-size:9px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; transition:all .3s; }
 .ctrl-btn:hover { border-color:var(--text-heading); color:var(--text-heading); }
 
+/* ===== GAME ===== */
+.game-trigger-wrap { position:fixed; bottom:28px; left:28px; z-index:8000; }
+.game-trigger { display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:30px; background:linear-gradient(135deg,var(--text-heading),#2a3a4a); color:#fff; border:none; cursor:pointer; font-family:'Montserrat',sans-serif; font-size:11px; font-weight:600; letter-spacing:1px; box-shadow:0 6px 24px rgba(30,42,56,0.25); transition:all .3s; }
+.game-trigger:hover { transform:translateY(-2px); box-shadow:0 8px 32px rgba(30,42,56,0.35); }
+.gt-emoji { font-size:16px; }
+.game-overlay { position:fixed; inset:0; z-index:99999; background:rgba(250,248,245,0.97); display:none; flex-direction:column; cursor:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><text y="30" font-size="30">🔨</text></svg>') 20 5,auto; }
+[data-theme="dark"] .game-overlay { background:rgba(15,20,25,0.97); }
+.game-overlay.active { display:flex; }
+.game-header { display:flex; align-items:center; justify-content:space-between; padding:16px 30px; background:linear-gradient(135deg,#1e2a38,#2a3a4a); color:#fff; }
+.game-title { font-family:'Share Tech Mono',monospace; font-size:16px; letter-spacing:2px; }
+.game-stats { display:flex; gap:24px; }
+.game-stat { text-align:center; }
+.game-stat-val { font-family:'Playfair Display',serif; font-size:28px; font-weight:700; }
+.game-stat-lbl { font-size:9px; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.6); }
+.game-close { background:none; border:1px solid rgba(255,255,255,0.3); color:#fff; padding:6px 16px; border-radius:20px; cursor:pointer; font-family:'Montserrat',sans-serif; font-size:10px; font-weight:600; letter-spacing:1.5px; transition:all .3s; }
+.game-close:hover { background:rgba(255,255,255,0.1); border-color:#fff; }
+.game-arena { flex:1; position:relative; overflow:hidden; }
+.terminator { position:absolute; cursor:inherit; font-size:40px; line-height:1; user-select:none; animation-timing-function:linear; animation-fill-mode:forwards; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.15)); }
+.terminator.hit { animation:hitSplat .4s ease forwards!important; pointer-events:none; }
+@keyframes hitSplat { 0%{transform:scale(1) rotate(0);opacity:1} 50%{transform:scale(1.5) rotate(20deg);opacity:.8} 100%{transform:scale(0) rotate(180deg);opacity:0} }
+@keyframes runRight { from{left:-50px} to{left:calc(100% + 50px)} }
+@keyframes runLeft { from{right:-50px} to{right:calc(100% + 50px)} }
+.hit-effect { position:absolute; pointer-events:none; font-size:24px; font-family:'Share Tech Mono',monospace; font-weight:700; color:var(--accent); animation:hitFloat .8s ease forwards; }
+@keyframes hitFloat { 0%{opacity:1;transform:translateY(0) scale(1)} 100%{opacity:0;transform:translateY(-40px) scale(1.3)} }
+.smash-ring { position:absolute; pointer-events:none; width:60px; height:60px; border-radius:50%; border:3px solid var(--accent); transform:translate(-50%,-50%) scale(0); animation:smashRing .4s ease forwards; }
+@keyframes smashRing { 0%{transform:translate(-50%,-50%) scale(0);opacity:1} 100%{transform:translate(-50%,-50%) scale(2);opacity:0} }
+.game-start-screen { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px; }
+.game-start-title { font-family:'Playfair Display',serif; font-size:36px; color:var(--text-heading); letter-spacing:3px; }
+.game-start-sub { font-size:13px; color:var(--text-muted); max-width:400px; text-align:center; line-height:1.7; }
+.game-start-btn { padding:14px 36px; border-radius:30px; background:linear-gradient(135deg,#1e2a38,#2a3a4a); color:#fff; border:none; cursor:pointer; font-family:'Montserrat',sans-serif; font-size:14px; font-weight:600; letter-spacing:2px; text-transform:uppercase; box-shadow:0 8px 30px rgba(30,42,56,0.2); transition:all .3s; }
+.game-start-btn:hover { transform:scale(1.05); }
+.game-over-screen { position:absolute; inset:0; display:none; flex-direction:column; align-items:center; justify-content:center; gap:16px; background:rgba(250,248,245,0.95); }
+[data-theme="dark"] .game-over-screen { background:rgba(15,20,25,0.95); }
+.game-over-screen.active { display:flex; }
+.game-over-title { font-family:'Playfair Display',serif; font-size:32px; color:var(--text-heading); }
+.game-over-score { font-family:'Share Tech Mono',monospace; font-size:48px; color:var(--accent); }
+.game-over-msg { font-size:13px; color:var(--text-muted); }
+.timer-bar-wrap { height:4px; background:var(--border-light); width:100%; }
+.timer-bar { height:100%; background:linear-gradient(90deg,var(--accent),var(--text-heading)); width:100%; transition:width .1s linear; }
+.combo-display { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); font-family:'Playfair Display',serif; font-size:64px; font-weight:700; color:var(--text-heading); opacity:0; pointer-events:none; z-index:100000; text-shadow:0 4px 20px rgba(30,42,56,0.15); }
+.combo-display.flash { animation:comboFlash .6s ease forwards; }
+@keyframes comboFlash { 0%{opacity:0;transform:translate(-50%,-50%) scale(0.5)} 30%{opacity:1;transform:translate(-50%,-50%) scale(1.2)} 100%{opacity:0;transform:translate(-50%,-50%) scale(1.5) translateY(-20px)} }
+
 /* ===== RESPONSIVE ===== */
 @media(max-width:768px){
     .hero-name{font-size:26px;letter-spacing:3px} .hero-dark{padding:36px 20px 30px} .hero-contact{padding:20px;grid-template-columns:1fr}
@@ -567,7 +641,7 @@ document.getElementById('deskWrap').addEventListener('click',function(){
     setTimeout(function(){
         landing.style.display='none'; document.body.style.overflow='auto';
         main.classList.remove('hidden'); main.classList.add('show');
-        setTimeout(function(){ nav.classList.add('show'); pnav.classList.add('show'); document.getElementById('chatToggle').style.display='flex'; revealPage(); animateCounters(); },300);
+        setTimeout(function(){ nav.classList.add('show'); pnav.classList.add('show'); document.getElementById('chatToggle').style.display='flex'; document.getElementById('gameTriggerWrap').style.display='block'; revealPage(); animateCounters(); },300);
     },900);
 });
 
@@ -716,6 +790,61 @@ document.getElementById('explainerModal').addEventListener('click',function(e){i
 var konamiSeq=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'],konamiIdx=0;
 document.addEventListener('keydown',function(e){if(e.key===konamiSeq[konamiIdx]||e.key.toLowerCase()===konamiSeq[konamiIdx]){konamiIdx++;if(konamiIdx===konamiSeq.length){konamiIdx=0;showKonamiEgg();}}else konamiIdx=0;});
 function showKonamiEgg(){var colors=['#c8956c','#1e2a38','#27ae60','#f1c40f','#e74c3c','#3498db'];for(var i=0;i<50;i++){var c=document.createElement('div');c.style.cssText='position:fixed;top:-10px;width:'+(6+Math.random()*8)+'px;height:'+(6+Math.random()*8)+'px;background:'+colors[Math.floor(Math.random()*colors.length)]+';border-radius:'+(Math.random()>.5?'50%':'2px')+';z-index:100000;pointer-events:none;left:'+Math.random()*100+'vw;animation:confettiFall '+(2+Math.random()*3)+'s linear '+(Math.random())+'s forwards;';document.body.appendChild(c);setTimeout(function(el){el.remove();}.bind(null,c),5000);}}
+</script>
+
+<script>
+/* ===== TERMINATOR SMASH GAME ===== */
+var gArena,gScoreEl,gComboEl,gMissEl,gTimerBar;
+var gScore=0,gCombo=0,gMissed=0,gMaxMiss=5,gActive=false,gTimer,gSpawnTimer;
+var gDuration=30000,gStartTime,gSpawnInterval=1200;
+var tEmojis=['🤖','👾','🦾','🦿','⚙️','🔩'];
+
+function openGame(){document.getElementById('gameOverlay').classList.add('active');document.getElementById('startScreen').style.display='flex';document.getElementById('gameOver').classList.remove('active');}
+function closeGame(){document.getElementById('gameOverlay').classList.remove('active');stopGameLoop();}
+
+function startGame(){
+    gArena=document.getElementById('gameArena');gScoreEl=document.getElementById('scoreVal');gComboEl=document.getElementById('comboVal');gMissEl=document.getElementById('missVal');gTimerBar=document.getElementById('timerBar');
+    gScore=0;gCombo=0;gMissed=0;gSpawnInterval=1200;
+    gScoreEl.textContent='0';gComboEl.textContent='0';gMissEl.textContent='0';gTimerBar.style.width='100%';
+    gArena.querySelectorAll('.terminator,.hit-effect,.smash-ring').forEach(function(el){el.remove();});
+    document.getElementById('startScreen').style.display='none';document.getElementById('gameOver').classList.remove('active');
+    gActive=true;gStartTime=Date.now();
+    gTimer=setInterval(function(){var el=Date.now()-gStartTime;var rem=Math.max(0,1-el/gDuration);gTimerBar.style.width=(rem*100)+'%';gSpawnInterval=Math.max(400,1200-(el/gDuration)*800);if(el>=gDuration)endGame(true);},50);
+    scheduleSpawn();
+}
+
+function scheduleSpawn(){if(!gActive)return;gSpawnTimer=setTimeout(function(){spawnTerminator();scheduleSpawn();},gSpawnInterval+Math.random()*400);}
+
+function spawnTerminator(){
+    if(!gActive)return;
+    var t=document.createElement('div');t.className='terminator';t.textContent=tEmojis[Math.floor(Math.random()*tEmojis.length)];
+    var ar=gArena.getBoundingClientRect();var fromL=Math.random()>.5;var yPos=60+Math.random()*(ar.height-120);var speed=3+Math.random()*4;
+    t.style.top=yPos+'px';var sz=32+Math.random()*20;t.style.fontSize=sz+'px';
+    if(fromL){t.style.left='-50px';t.style.animation='runRight '+speed+'s linear forwards';}
+    else{t.style.right='-50px';t.style.animation='runLeft '+speed+'s linear forwards';}
+    t.addEventListener('click',function(e){if(t.classList.contains('hit'))return;smashT(t,e);});
+    gArena.appendChild(t);
+    setTimeout(function(){if(!t.classList.contains('hit')&&t.parentElement){t.remove();if(gActive){gMissed++;gCombo=0;gMissEl.textContent=gMissed;gComboEl.textContent='0';if(gMissed>=gMaxMiss)endGame(false);}}},speed*1000+100);
+}
+
+function smashT(t,e){
+    t.classList.add('hit');gScore++;gCombo++;gScoreEl.textContent=gScore;gComboEl.textContent=gCombo;
+    var ar=gArena.getBoundingClientRect();
+    var fx=document.createElement('div');fx.className='hit-effect';fx.textContent=gCombo>1?'+'+gCombo+'!':'+1';fx.style.left=(e.clientX-ar.left)+'px';fx.style.top=(e.clientY-ar.top-20)+'px';gArena.appendChild(fx);setTimeout(function(){fx.remove();},800);
+    var ring=document.createElement('div');ring.className='smash-ring';ring.style.left=(e.clientX-ar.left)+'px';ring.style.top=(e.clientY-ar.top)+'px';gArena.appendChild(ring);setTimeout(function(){ring.remove();},400);
+    if(gCombo>0&&gCombo%5===0){var cd=document.getElementById('comboDisplay');cd.textContent=gCombo+'x COMBO!';cd.classList.remove('flash');void cd.offsetWidth;cd.classList.add('flash');gScore+=gCombo;gScoreEl.textContent=gScore;}
+    setTimeout(function(){if(t.parentElement)t.remove();},400);
+}
+
+function endGame(survived){
+    gActive=false;clearInterval(gTimer);clearTimeout(gSpawnTimer);
+    gArena.querySelectorAll('.terminator:not(.hit)').forEach(function(t){t.remove();});
+    document.getElementById('gameOverScore').textContent=gScore;
+    if(survived){document.getElementById('gameOverEmoji').textContent=gScore>20?'🏆':'👍';document.getElementById('gameOverTitle').textContent=gScore>20?'Terminator Slayer!':'Nice Work!';document.getElementById('gameOverMsg').textContent='terminators smashed in 30 seconds';}
+    else{document.getElementById('gameOverEmoji').textContent='💀';document.getElementById('gameOverTitle').textContent='Game Over';document.getElementById('gameOverMsg').textContent='Too many escaped! You smashed '+gScore;}
+    document.getElementById('gameOver').classList.add('active');
+}
+function stopGameLoop(){gActive=false;clearInterval(gTimer);clearTimeout(gSpawnTimer);}
 </script>
 <style>@keyframes confettiFall{to{top:110vh;transform:rotate(720deg)}}</style>
 </body>
